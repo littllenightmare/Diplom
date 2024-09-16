@@ -30,7 +30,7 @@
         <Label Content="Порции" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="6"/>
         <Label Content="Категория" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="5"/>
         <Label Content="Углеводы" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="4"/>
-        <Button Content="Отфильтровать" FontSize="20" FontFamily="XO Courser" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="30" Grid.Row="8" VerticalAlignment="Center" BorderBrush="Black" Background="White" Width="160" Click="FilterClick"/>
+        <Button Content="Отфильтровать" FontSize="20" FontFamily="XO Courser" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="30" Grid.Row="8" VerticalAlignment="Center" BorderBrush="Black" Background="White" Click="FilterClick"/>
         <TextBox x:Name="nametb" FontSize="20" FontFamily="XO Courser" Grid.Column="1" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="160"/>
         <TextBox x:Name="caloriestb" FontSize="20" FontFamily="XO Courser" Grid.Column="1" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap" Text="" Grid.Row="1" VerticalAlignment="Center" Width="160"/>
         <TextBox x:Name="zhiritb" FontSize="20" FontFamily="XO Courser" Grid.Column="1" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap" Text="" Grid.Row="3" VerticalAlignment="Center" Width="160"/>

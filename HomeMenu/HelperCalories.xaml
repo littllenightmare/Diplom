@@ -18,13 +18,13 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Content="Рассчитать" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="38" Margin="91,0,0,0" Grid.Row="4" FontSize="20" FontFamily="XO Courser" VerticalAlignment="Center" Width="125" Click="CaloriesClick" BorderBrush="Black" Background="White"/>
+        <Button Content="Рассчитать" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="38" Grid.Row="4" FontSize="20" FontFamily="XO Courser" VerticalAlignment="Center" Click="CaloriesClick" BorderBrush="Black" Background="White"/>
         <Label Content="Вес" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="130" FontSize="20" FontFamily="XO Courser" Grid.Row="3"/>
         <Label Content="Возраст" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="130" FontSize="20" FontFamily="XO Courser" Grid.Row="1"/>
         <Label Content="Рост" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="130" FontSize="20" FontFamily="XO Courser" Grid.Row="2"/>
         <Label Content="Пол" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" FontSize="20" FontFamily="XO Courser" Width="130"/>
         <ComboBox x:Name="Sex" Grid.Column="1" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="130"/>
-        <TextBox x:Name="Weighttb" Grid.Column="1" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="27" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" Margin="0,6,0,0" Grid.Row="3"/>
+        <TextBox x:Name="Weighttb" Grid.Column="1" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="27" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="130" Grid.Row="3"/>
         <TextBox x:Name="Heighttb" Grid.Column="1" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="27" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="130" Grid.Row="2"/>
         <TextBox x:Name="Agetb" Grid.Column="1" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="27" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="130" Grid.Row="1"/>
     </Grid>

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HomeMenu.Database;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HomeMenu
 {
@@ -19,9 +12,22 @@ namespace HomeMenu
     /// </summary>
     public partial class DishInfo : Window
     {
+        Yum _yum;
+        MenuContext _db = new MenuContext();
         public DishInfo()
         {
             InitializeComponent();
+        }
+
+        public void GetDish(string dish)
+        {
+            name.Content = dish;
+        }
+        private void ReturnMain(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            this.Close();
+            mw.Show();
         }
     }
 }

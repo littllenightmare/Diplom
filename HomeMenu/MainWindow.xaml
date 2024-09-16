@@ -22,7 +22,7 @@
         <Image Source="/Info/Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="5"/>
         <Label Grid.Column="1" Content="Привет! Что сегодня поедим?" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="80" VerticalAlignment="Center" Width="335" FontSize="20" FontFamily="XO Courser"/>
         <Label x:Name="Test" Grid.Column="1" Content="Пройти тест" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="71" Grid.Row="1" VerticalAlignment="Top" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="TestClick"/>
-        <Label x:Name="Choose" Grid.Column="1" Content="Выбрать самостоятельно" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="71" Grid.Row="1" VerticalAlignment="Top" Width="300" Grid.RowSpan="2" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ChooseClick" Margin="0,134,0,0"/>
-        <TextBox x:Name="Fact" TextWrapping="Wrap" IsReadOnly="True" Text="Рандомный факт: " Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="100" BorderThickness="0" Grid.Row="3" VerticalAlignment="Top" Width="300" FontSize="20" FontFamily="XO Courser" Margin="68,66,0,0" Background="#FFFBFDF0"/>
+        <Label x:Name="Choose" Grid.Column="1" Content="Выбрать самостоятельно" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="71" Grid.Row="1" VerticalAlignment="Center" Width="300" Grid.RowSpan="2" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ChooseClick"/>
+        <TextBox x:Name="Fact" TextWrapping="Wrap" IsReadOnly="True" Text="Рандомный факт: " Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="100" BorderThickness="0" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Center" Width="300" FontSize="20" FontFamily="XO Courser" Margin="0,0,32,0" Background="#FFFBFDF0"/>
     </Grid>
 </Window>

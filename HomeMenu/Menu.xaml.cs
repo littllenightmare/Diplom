@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using HomeMenu.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,6 +49,19 @@ namespace HomeMenu
         {
             Filter f = new Filter();
             f.Show();
+        }
+
+        private void DishInfoClick(object sender, MouseButtonEventArgs e)
+        {
+            DishInfo di = new DishInfo();
+            var dish = MenuItems.Items.CurrentItem.ToString();
+            di.GetDish(dish);
+            di.Show();
+        }
+
+        private void UnFilterClick(object sender, MouseButtonEventArgs e)
+        {
+            MenuItems.ItemsSource = _yum.Название;
         }
     }
 }

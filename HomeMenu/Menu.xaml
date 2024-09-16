@@ -26,9 +26,10 @@
         </Grid.ColumnDefinitions>
         <Image Source="/Info/Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="10"/>
         <Label Grid.Column="1" Content="Меню" HorizontalAlignment="Center" Height="34" VerticalAlignment="Bottom" Width="190" FontSize="20" FontFamily="XO Courser"/>
-        <Label Grid.Column="2" Content="Фильтр" HorizontalAlignment="Center" Height="34" VerticalAlignment="Top" Width="84" FontSize="20" FontFamily="XO Courser" Margin="0,33,4,0" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="FilterClick"/>
-        <Label Grid.Column="1" Content="На главную" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="34" VerticalAlignment="Bottom" Width="135" FontSize="20" Margin="0,0,50,9" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ReturnMain"/>
-        <ListView FontSize="20" FontFamily="XO Courser" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#FFFBFDF0" x:Name="MenuItems" BorderBrush="Black" Grid.ColumnSpan="3" BorderThickness="1" HorizontalAlignment="Left" Height="471" Grid.RowSpan="7" Grid.Row="1" VerticalAlignment="Top" Width="346" Margin="120,60,0,0">
+        <Label Grid.Column="1" Content="Фильтр" HorizontalAlignment="Right" Height="34" VerticalAlignment="Bottom" Width="84" FontSize="20" FontFamily="XO Courser" Margin="0,0,24,11" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="FilterClick"/>
+        <Label Grid.Column="1" Content="Снять фильтр" HorizontalAlignment="Right" Height="34" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="20" FontFamily="XO Courser" Margin="0,0,59,11" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="UnFilterClick"/>
+        <Label Content="На главную" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" Height="34" VerticalAlignment="Top" Width="135" FontSize="20" Margin="0,11,0,0" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ReturnMain"/>
+        <ListView FontSize="20" FontFamily="XO Courser" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#FFFBFDF0" x:Name="MenuItems" BorderBrush="Black" Grid.ColumnSpan="3" BorderThickness="1" HorizontalAlignment="Left" Height="471" Grid.RowSpan="7" Grid.Row="1" VerticalAlignment="Top" Width="346" Margin="120,60,0,0" MouseDoubleClick="DishInfoClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -37,6 +38,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label Content="Ингридиенты" HorizontalAlignment="Left" Height="34" VerticalAlignment="Bottom" Width="145" FontSize="20" Margin="57,0,0,32" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" Grid.Row="9" Grid.ColumnSpan="2"/>
+        <Label Content="Ингридиенты" HorizontalAlignment="Right" Height="34" VerticalAlignment="Top" Width="145" FontSize="20" Margin="0,11,0,0" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" Grid.Row="9"/>
     </Grid>
 </Window>
