@@ -23,8 +23,6 @@ public partial class Yum
 
     public DateOnly? Давность { get; set; }
 
-    public int? Хранение { get; set; }
-
     public string Рецепт { get; set; }
 
     public string Категория { get; set; }

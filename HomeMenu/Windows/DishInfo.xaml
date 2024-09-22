@@ -24,7 +24,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image Source="/Info/Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="10"/>
+        <Image Source="Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="10"/>
         <Label Grid.Column="1" x:Name="name" HorizontalAlignment="Center" Height="34" VerticalAlignment="Bottom" Width="190" FontSize="20" FontFamily="XO Courser" Margin="0,0,0,9"/>
         <Label Grid.Column="2" Content="На главную" HorizontalAlignment="Left" Height="34" VerticalAlignment="Bottom" Width="135" FontSize="20" Margin="0,0,0,9" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ReturnMain"/>
         <Grid Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="548" Grid.RowSpan="8" Grid.Row="1" VerticalAlignment="Center" Width="406">

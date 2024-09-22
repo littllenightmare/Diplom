@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using HomeMenu.Database;
+using HomeMenu.Functions;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeMenu
@@ -11,23 +14,33 @@ namespace HomeMenu
     /// </summary>
     public partial class Menu : Window
     {
-        public Menu()
+        private List<Yum> _filteredData;
+        public Menu(List<Yum> filteredData)
         {
             InitializeComponent();
+            if (filteredData != null)
+            {
+                MenuItems.ItemsSource = filteredData;
+                MenuItems.Items.Refresh();
+            }
+            else LoadDBInLV();
+
         }
         MenuContext _db = new MenuContext();
         Yum _yum;
-        private void WindowLoaded(object sender, RoutedEventArgs e)
+        async void LoadDBInLV()
         {
-            LoadDBInLV();
-        }
-        void LoadDBInLV()
-        {
+            MenuContext _db = new MenuContext();
             using (_db)
             {
                 int selectedIndex = MenuItems.SelectedIndex;
-                _db.Yums.Load();
-                MenuItems.ItemsSource = _db.Yums.ToList();
+                await _db.Yums.LoadAsync();
+                MenuItems.ItemsSource = null;
+                MenuItems.Items.Clear();
+                foreach (Yum yum in _db.Yums)
+                {
+                    MenuItems.Items.Add(yum);
+                }
                 if (selectedIndex != -1)
                 {
                     if (selectedIndex == MenuItems.Items.Count) selectedIndex--;
@@ -47,8 +60,9 @@ namespace HomeMenu
 
         private void FilterClick(object sender, MouseButtonEventArgs e)
         {
-            Filter f = new Filter();
-            f.Show();
+            var filterWindow = new Filter();
+            filterWindow.Show();
+            this.Close();
         }
 
         private void DishInfoClick(object sender, MouseButtonEventArgs e)
@@ -59,9 +73,9 @@ namespace HomeMenu
             di.Show();
         }
 
-        private void UnFilterClick(object sender, MouseButtonEventArgs e)
+        private async void UnFilterClick(object sender, MouseButtonEventArgs e)
         {
-            MenuItems.ItemsSource = _yum.Название;
+            LoadDBInLV();
         }
     }
 }

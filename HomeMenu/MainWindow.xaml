@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu"
         mc:Ignorable="d"
-        Title="Всё для тебя, любовь моя" Icon="Info/Icon.jpg" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" >
+        Title="Всё для тебя, любовь моя" Icon="Windows/Info/Icon.jpg" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -19,7 +19,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image Source="/Info/Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="5"/>
+        <Image Source="Windows/Info/Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="5"/>
         <Label Grid.Column="1" Content="Привет! Что сегодня поедим?" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="80" VerticalAlignment="Center" Width="335" FontSize="20" FontFamily="XO Courser"/>
         <Label x:Name="Test" Grid.Column="1" Content="Пройти тест" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="71" Grid.Row="1" VerticalAlignment="Top" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="TestClick"/>
         <Label x:Name="Choose" Grid.Column="1" Content="Выбрать самостоятельно" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="71" Grid.Row="1" VerticalAlignment="Center" Width="300" Grid.RowSpan="2" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ChooseClick"/>

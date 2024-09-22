@@ -1,6 +1,6 @@
 ﻿using HomeMenu.Database;
 
-namespace HomeMenu
+namespace HomeMenu.Functions
 {
     class Data
     {

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HomeMenu.Database;
+using HomeMenu.Functions;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,6 +12,7 @@ namespace HomeMenu
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Yum> _filteredData;
         public MainWindow()
         {
             InitializeComponent();
@@ -24,7 +28,7 @@ namespace HomeMenu
 
         private void ChooseClick(object sender, MouseButtonEventArgs e)
         {
-            Menu m = new Menu();
+            Menu m = new Menu(_filteredData);
             this.Close();
             m.Show();
         }

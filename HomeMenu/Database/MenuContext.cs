@@ -29,6 +29,7 @@ public partial class MenuContext : DbContext
 
             entity.ToTable("Yum");
 
+            entity.Property(e => e.Название).HasMaxLength(26);
             entity.Property(e => e.БелкиФулл).HasColumnName("Белки_фулл");
             entity.Property(e => e.ЖирыФулл).HasColumnName("Жиры_фулл");
             entity.Property(e => e.ИнгридиентыФулл)

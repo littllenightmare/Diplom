@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu"
         mc:Ignorable="d"
-        Title="Едим, что хотим" Height="800" Icon="Info/Icon.jpg" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Loaded="WindowLoaded">
+        Title="Едим, что хотим" Height="800" Icon="Info/Icon.jpg" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -24,7 +24,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image Source="/Info/Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="10"/>
+        <Image Source="Info/Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="10"/>
         <Label Grid.Column="1" Content="Меню" HorizontalAlignment="Center" Height="34" VerticalAlignment="Bottom" Width="190" FontSize="20" FontFamily="XO Courser"/>
         <Label Grid.Column="1" Content="Фильтр" HorizontalAlignment="Right" Height="34" VerticalAlignment="Bottom" Width="84" FontSize="20" FontFamily="XO Courser" Margin="0,0,24,11" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="FilterClick"/>
         <Label Grid.Column="1" Content="Снять фильтр" HorizontalAlignment="Right" Height="34" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="20" FontFamily="XO Courser" Margin="0,0,59,11" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="UnFilterClick"/>

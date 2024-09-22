@@ -16,7 +16,6 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.8*"/>
@@ -26,7 +25,6 @@
         <Label Content="Жиры" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="3"/>
         <Label Content="Белки" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="2"/>
         <Label Content="Калории" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="1"/>
-        <Label Content="Хранение" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="7"/>
         <Label Content="Порции" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="6"/>
         <Label Content="Категория" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="5"/>
         <Label Content="Углеводы" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="120" Grid.Row="4"/>
@@ -37,7 +35,13 @@
         <TextBox x:Name="uglevoditb" FontSize="20" FontFamily="XO Courser" Grid.Column="1" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap" Text="" Grid.Row="4" VerticalAlignment="Center" Width="160"/>
         <TextBox x:Name="portiontb" FontSize="20" FontFamily="XO Courser" Grid.Column="1" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap" Text="" Grid.Row="6" VerticalAlignment="Center" Width="160"/>
         <TextBox x:Name="belkitb" FontSize="20" FontFamily="XO Courser" Grid.Column="1" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap" Text="" Grid.Row="2" VerticalAlignment="Center" Width="160"/>
-        <ComboBox x:Name="categorycb" Grid.Column="1" HorizontalAlignment="Center" Height="30" Grid.Row="5" VerticalAlignment="Center" Width="160" ItemsSource="{Binding categories}"/>
-        <ComboBox x:Name="datecb" Grid.Column="1" HorizontalAlignment="Center" Height="30" Grid.Row="7" VerticalAlignment="Center" Width="160" ItemsSource="{Binding dates}"/>
+        <ComboBox x:Name="categorycb" Grid.Column="1" HorizontalAlignment="Center" Height="30" Grid.Row="5" VerticalAlignment="Center" Width="160">
+            <ComboBoxItem Content="Закуска"></ComboBoxItem>
+            <ComboBoxItem Content="Салат"></ComboBoxItem>
+            <ComboBoxItem Content="Суп"></ComboBoxItem>
+            <ComboBoxItem Content="Каша"></ComboBoxItem>
+            <ComboBoxItem Content="Десерт"></ComboBoxItem>
+            <ComboBoxItem Content="Второе"></ComboBoxItem>
+        </ComboBox>
     </Grid>
 </Window>

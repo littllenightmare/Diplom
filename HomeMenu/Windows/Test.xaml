@@ -14,7 +14,7 @@
             <RowDefinition Height="0.8*"></RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Image Source="/Info/Menu.jpg" Stretch="Fill" Grid.RowSpan="5"/>
+        <Image Source="Info/Menu.jpg" Stretch="Fill" Grid.RowSpan="5"/>
         <Label x:Name="Question" Content="Выбери количество калорий" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontFamily="XO Courser" Margin="184,0,0,10"/>
         <Label x:Name="AnswerA" Visibility="Hidden" Grid.Column="1" Content="Завтрак" HorizontalAlignment="Center" Height="71" Grid.Row="1" VerticalAlignment="Top" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="AClick"/>
         <Label x:Name="AnswerB" Grid.Column="1" Content="Среднестат. мужчина" HorizontalAlignment="Center" Height="71" Grid.Row="2" VerticalAlignment="Top" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="BClick"/>
