@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu"
         mc:Ignorable="d"
-        Title="Всё для тебя, любовь моя" Icon="Windows/Info/Icon.jpg" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" >
+        Title="Всё для тебя, любовь моя" Icon="Windows/Info/Icon.jpg" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -23,6 +23,6 @@
         <Label Grid.Column="1" Content="Привет! Что сегодня поедим?" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="80" VerticalAlignment="Center" Width="335" FontSize="20" FontFamily="XO Courser"/>
         <Label x:Name="Test" Grid.Column="1" Content="Пройти тест" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="71" Grid.Row="1" VerticalAlignment="Top" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="TestClick"/>
         <Label x:Name="Choose" Grid.Column="1" Content="Выбрать самостоятельно" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="71" Grid.Row="1" VerticalAlignment="Center" Width="300" Grid.RowSpan="2" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ChooseClick"/>
-        <TextBox x:Name="Fact" TextWrapping="Wrap" IsReadOnly="True" Text="Рандомный факт: " Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="100" BorderThickness="0" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Center" Width="300" FontSize="20" FontFamily="XO Courser" Margin="0,0,32,0" Background="#FFFBFDF0"/>
+        <TextBox x:Name="Fact" TextWrapping="Wrap" IsReadOnly="True" Text="Рандомный факт: " Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="150" BorderThickness="0" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Center" Width="270" FontSize="20" FontFamily="XO Courser" Background="#FFFBFDF0"/>
     </Grid>
 </Window>

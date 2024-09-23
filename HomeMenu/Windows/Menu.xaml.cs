@@ -68,7 +68,7 @@ namespace HomeMenu
         private void DishInfoClick(object sender, MouseButtonEventArgs e)
         {
             DishInfo di = new DishInfo();
-            var dish = MenuItems.Items.CurrentItem.ToString();
+            var dish = MenuItems.Items.CurrentItem;
             di.GetDish(dish);
             di.Show();
         }

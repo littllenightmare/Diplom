@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu"
         mc:Ignorable="d"
-        Title="Расчёт калорий" Icon="Info/Icon.jpg" Height="250" Width="300" WindowStartupLocation="CenterOwner">
+        Title="Расчёт калорий" Icon="Info/Icon.jpg" Height="250" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
