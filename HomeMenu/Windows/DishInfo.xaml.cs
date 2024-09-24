@@ -22,17 +22,22 @@ namespace HomeMenu
 
         public void GetDish(object dish)
         {
-            name.Content = dish;
-            tbcalories.Text = Convert.ToString(_db.Yums.Find(dish).КалорииФулл);
-            tbportion.Text = Convert.ToString(_db.Yums.Find(dish).Порции);
-            tbbelki.Text = Convert.ToString(_db.Yums.Find(dish).БелкиФулл);
-            tbgrams.Text = Convert.ToString(_db.Yums.Find(dish).Граммы);
-            tbdate.Text = Convert.ToString(_db.Yums.Find(dish).Давность);
-            tbzhiri.Text = Convert.ToString(_db.Yums.Find(dish).ЖирыФулл);
-            tbingridients.Text = Convert.ToString(_db.Yums.Find(dish).ИнгридиентыФулл);
-            tbcategory.Text = Convert.ToString(_db.Yums.Find(dish).Категория);
-            tbrecipy.Text = Convert.ToString(_db.Yums.Find(dish).Рецепт);
-            tbuglevodi.Text = Convert.ToString(_db.Yums.Find(dish).УглеводыФулл);
+            Yum yum = (Yum)dish;
+            string dishId = yum.Название;
+            Yum dbDish = _db.Yums.Find(dishId);
+            if (dbDish != null)
+            {
+                name.Content = dbDish.Название;
+                tbcalories.Text = Convert.ToString(dbDish.КалорииФулл);
+                tbportion.Text = Convert.ToString(dbDish.Порции);
+                tbbelki.Text = Convert.ToString(dbDish.БелкиФулл);
+                tbgrams.Text = Convert.ToString(dbDish.Граммы);
+                tbzhiri.Text = Convert.ToString(dbDish.ЖирыФулл);
+                tbrecipy.Text = Convert.ToString(dbDish.Рецепт);
+                tbuglevodi.Text = Convert.ToString(dbDish.УглеводыФулл);
+                var filteredArray = dbDish.ИнгридиентыФулл.Where(c => c != '"' && c != '{' && c != '}').ToArray();
+                tbingridients.Text = string.Join("", filteredArray);
+            }
         }
         private void ReturnMain(object sender, MouseButtonEventArgs e)
         {

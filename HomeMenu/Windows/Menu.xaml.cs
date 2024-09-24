@@ -68,9 +68,10 @@ namespace HomeMenu
         private void DishInfoClick(object sender, MouseButtonEventArgs e)
         {
             DishInfo di = new DishInfo();
-            var dish = MenuItems.Items.CurrentItem;
-            di.GetDish(dish);
+            var dish = MenuItems.SelectedItem;
             di.Show();
+            this.Close();
+            di.GetDish(dish);
         }
 
         private async void UnFilterClick(object sender, MouseButtonEventArgs e)

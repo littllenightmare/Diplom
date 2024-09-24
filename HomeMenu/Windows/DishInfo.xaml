@@ -27,8 +27,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Image Source="Info/Menu.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="12"/>
-        <Label Grid.Column="1" x:Name="name" HorizontalAlignment="Center" Height="35" VerticalAlignment="Bottom" FontSize="20" FontFamily="XO Courser"/>
-        <Label Grid.Column="2" Content="На главную" HorizontalAlignment="Left" Height="35" VerticalAlignment="Bottom" Width="135" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ReturnMain"/>
+        <Label Grid.Column="1" x:Name="name" HorizontalAlignment="Center" Grid.ColumnSpan="2" Height="35" VerticalAlignment="Bottom" FontSize="20" FontFamily="XO Courser"/>
+        <Label Grid.Column="2" Content="На главную" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="105" FontSize="15" Grid.Row="1" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="ReturnMain" Margin="51,10,0,0"/>
         <Grid Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="550" Grid.RowSpan="10" Grid.Row="1" VerticalAlignment="Center" Width="405">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -47,28 +47,25 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.ColumnSpan="2" FontSize="20" FontFamily="XO Courser" Content="Калории" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBox Grid.ColumnSpan="2" x:Name="tbcalories" Text="{Binding КалорииФулл}" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
+            <TextBox IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbcalories" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
             <Label Grid.ColumnSpan="2" FontSize="20" FontFamily="XO Courser" Content="Граммы" HorizontalAlignment="Center" Grid.Column="2" VerticalAlignment="Top"/>
-            <TextBox Grid.ColumnSpan="2" x:Name="tbportion" Text="{Binding Порции}" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Grid.Column="2" VerticalAlignment="Center" Width="120" Height="30"/>
+            <TextBox IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbgrams" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Grid.Column="2" VerticalAlignment="Center" Width="120" Height="30"/>
             <Label Grid.ColumnSpan="2" FontSize="20" FontFamily="XO Courser" Content="Белки" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"/>
-            <TextBox Grid.ColumnSpan="2" x:Name="tbbelki" Text="{Binding БелкиФулл}" Background="#FFFBFDF0" Grid.Row="1" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
+            <TextBox IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbbelki" Background="#FFFBFDF0" Grid.Row="1" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
             <Label Grid.ColumnSpan="2" FontSize="20" FontFamily="XO Courser" Content="Жиры" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1"/>
-            <TextBox Grid.ColumnSpan="2" x:Name="tbzhiri" Text="{Binding ЖирыФулл}" Grid.Row="1" Grid.Column="2" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
-            <Label Grid.ColumnSpan="2" FontSize="20" FontFamily="XO Courser" Content="Хранение" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
-            <TextBox Grid.ColumnSpan="2" x:Name="tbdate" Text="{Binding Хранение}" Grid.Row="2" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
-            <Label Grid.ColumnSpan="2" FontSize="20" FontFamily="XO Courser" Content="Категория" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Grid.Row="2"/>
-            <TextBox Grid.ColumnSpan="2" x:Name="tbcategory" Text="{Binding Категория}" Grid.Row="2" Grid.Column="2" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
+            <TextBox IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbzhiri" Grid.Row="1" Grid.Column="2" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
             <Label Grid.ColumnSpan="2" FontSize="20" FontFamily="XO Courser" Content="Углеводы" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Grid.Column="4"/>
-            <TextBox Grid.ColumnSpan="2" x:Name="tbuglevodi" Text="{Binding УглеводыФулл}" Grid.Row="1" Grid.Column="4" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
+            <TextBox IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbuglevodi" Grid.Row="1" Grid.Column="4" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
             <Label Grid.ColumnSpan="2" FontSize="20" FontFamily="XO Courser" Content="Порции" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="4"/>
-            <TextBox Grid.ColumnSpan="2" x:Name="tbgrams" Text="{Binding Граммы}" Grid.Column="4" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
-            <Frame Grid.Row="3" Grid.ColumnSpan="3" BorderThickness="2" BorderBrush="Black" Grid.RowSpan="3"/>
-            <TextBox x:Name="tbingridients" Text="{Binding ИнгридиентыФулл}" Grid.Row="3" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" Width="170" Height="226"/>
-            <Label Grid.ColumnSpan="3" FontSize="20" FontFamily="XO Courser" Content="Ингредиенты" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="3"/>
-            <Frame Grid.Row="3" Grid.Column="3" BorderThickness="2" BorderBrush="Black" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
-            <TextBox x:Name="tbrecipy" Text="{Binding Рецепт}" Grid.Row="3" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.Column="3" Grid.RowSpan="3" VerticalAlignment="Center" Width="170" Height="220"/>
-            <Label Grid.ColumnSpan="3" FontSize="20" FontFamily="XO Courser" Content="Рецепт" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="3" Grid.Row="3"/>
+            <TextBox IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbportion" Grid.Column="4" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30"/>
+            <Frame Grid.Row="2" Grid.ColumnSpan="3" BorderThickness="2" BorderBrush="Black" Grid.RowSpan="4"/>
+            <TextBox IsReadOnly="True" x:Name="tbingridients" TextWrapping="Wrap" Grid.Row="2" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="4" Width="170" Height="300"/>
+            <Label Grid.ColumnSpan="3" FontSize="20" FontFamily="XO Courser" Content="Ингредиенты" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
+            <Frame Grid.Row="2" Grid.Column="3" BorderThickness="2" BorderBrush="Black" Grid.RowSpan="4" Grid.ColumnSpan="3"/>
+            <TextBox TextWrapping="Wrap" IsReadOnly="True" x:Name="tbrecipy" Grid.Row="2" Background="#FFFBFDF0" FontSize="20" FontFamily="XO Courser" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.Column="3" Grid.RowSpan="4" VerticalAlignment="Center" Width="170" Height="300"/>
+            <Label Grid.ColumnSpan="3" FontSize="20" FontFamily="XO Courser" Content="Рецепт" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="3" Grid.Row="2"/>
         </Grid>
         <Label FontSize="12" FontFamily="XO Courser" Content="Внимание! Все данные рассчитаны на всё блюдо, а не на 100 грамм" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="11"/>
+        <Label FontSize="12" FontFamily="XO Courser" Content="Внимание! Абсолютно все ингредиенты написаны в граммах" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="11"/>
     </Grid>
 </Window>
