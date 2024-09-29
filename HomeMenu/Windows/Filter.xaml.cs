@@ -23,7 +23,7 @@ namespace HomeMenu
         {
             InitializeComponent();
             MessageBox.Show("Обратите внимание: калории рассчитываются на одну порции блюда, а не на все");
-            categories[0] = "Каша";
+            categories[0] = "Завтрак";
             categories[1] = "Суп";
             categories[2] = "Десерт";
             categories[5] = "Второе";
