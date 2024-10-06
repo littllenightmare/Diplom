@@ -36,7 +36,23 @@ namespace HomeMenu
             try
             {
                 int calory = 0, belki = 0, zhiri = 0, uglevodi = 0, portion = 0;
-                string message = "", categ = "";
+                string message = "", categ = "", name="";
+                switch (nametb.Text)
+                {
+                    case "":
+                        break;
+                    default:
+                        if (Int32.TryParse(nametb.Text, out int a) != true)
+                        {
+                            name = nametb.Text;
+                            break;
+                        }
+                        else
+                        {
+                            message = message + "Название это буковки\n";
+                            break;
+                        }
+                }
                 switch (caloriestb.Text)
                 {
                     case "":
@@ -51,7 +67,6 @@ namespace HomeMenu
                             message = message + "Калории это циферки\n";
                             break;
                         }
-
                 }
                 switch (belkitb.Text)
                 {
@@ -148,6 +163,11 @@ namespace HomeMenu
                 {
                     var query = _context.Yums.AsQueryable();
 
+                    if (!String.IsNullOrEmpty(name))
+                    {
+                        query = query.Where(y => y.Название.ToLower().Contains(name.ToLower()));
+                    }
+
                     if (!String.IsNullOrEmpty(Convert.ToString(belki)))
                     {
                         if(belki !=0) query = query.Where(y => y.БелкиФулл >= belki && y.БелкиФулл <= belki + 50);
@@ -160,7 +180,7 @@ namespace HomeMenu
 
                     if (!String.IsNullOrEmpty(Convert.ToString(calory)))
                     {
-                       if(calory != 0) query = query.Where(y => y.КалорииФулл >= (calory/portion) && y.КалорииФулл <= (calory/portion + 200));
+                       if(calory != 0) query = query.Where(y => y.КалорииФулл+200 >= calory && y.КалорииФулл <= (calory + 200));
                     }
 
                     if (!String.IsNullOrEmpty(Convert.ToString(categ)))

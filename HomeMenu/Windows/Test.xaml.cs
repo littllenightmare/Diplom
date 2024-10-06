@@ -44,8 +44,13 @@ namespace HomeMenu
                             Console.WriteLine("Calories condition count: " + caloriesCondition.Count());
                             Console.WriteLine("Belki condition count: " + belkiCondition.Count());
                             Console.WriteLine("Zhiri condition count: " + zhiriCondition.Count());
-                            Console.WriteLine("Uglevodi condition count: " + uglevodiCondition.Count()); 
-                            
+                            Console.WriteLine("Uglevodi condition count: " + uglevodiCondition.Count());
+
+                            query = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100) &&
+                           int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200 &&
+                           int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri / 3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri / 3 + 200 &&
+                           int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi / 3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi / 3 + 200);
+
                             _filteredData = query.ToList();
                             Calories.Visibility = Visibility.Hidden;
                             AnswerA.Visibility = Visibility.Visible;
@@ -86,14 +91,19 @@ namespace HomeMenu
                             belki = 30 * calories / 100; zhiri = belki; uglevodi = calories-2*belki;
                             var caloriesCondition = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100));
                             var belkiCondition = query.Where(y => int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200);
-                            var zhiriCondition = query.Where(y => int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri + 200);
-                            var uglevodiCondition = query.Where(y => int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi + 200);
+                            var zhiriCondition = query.Where(y => int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri/3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri /3 + 200);
+                            var uglevodiCondition = query.Where(y => int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi/3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi /3 + 200);
 
                             Console.WriteLine("Calories condition count: " + caloriesCondition.Count());
                             Console.WriteLine("Belki condition count: " + belkiCondition.Count());
                             Console.WriteLine("Zhiri condition count: " + zhiriCondition.Count());
                             Console.WriteLine("Uglevodi condition count: " + uglevodiCondition.Count());
-                            
+
+                            query = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100) &&
+                           int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200 &&
+                           int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri / 3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri / 3 + 200 &&
+                           int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi / 3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi / 3 + 200);
+
                             _filteredData = query.ToList();
                             Calories.Visibility = Visibility.Hidden;
                             AnswerA.Visibility = Visibility.Visible;
@@ -135,14 +145,19 @@ namespace HomeMenu
                         belki = 780; zhiri = 780; uglevodi=1040;
                         var caloriesCondition = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100));
                         var belkiCondition = query.Where(y => int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200);
-                        var zhiriCondition = query.Where(y => int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri + 200);
-                        var uglevodiCondition = query.Where(y => int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi + 200);
+                        var zhiriCondition = query.Where(y => int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri /3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri/3 + 200);
+                        var uglevodiCondition = query.Where(y => int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi /3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi/3 + 200);
 
                         Console.WriteLine("Calories condition count: " + caloriesCondition.Count());
                         Console.WriteLine("Belki condition count: " + belkiCondition.Count());
                         Console.WriteLine("Zhiri condition count: " + zhiriCondition.Count());
                         Console.WriteLine("Uglevodi condition count: " + uglevodiCondition.Count());
                         
+                        query = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100) &&
+                            int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200 &&
+                            int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri / 3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri / 3 + 200 &&
+                            int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi / 3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi / 3 + 200);
+
                         _filteredData = query.ToList();
                         Calories.Visibility = Visibility.Hidden;
                         AnswerA.Visibility = Visibility.Visible;
@@ -183,14 +198,19 @@ namespace HomeMenu
                         belki = 450; zhiri = 450; uglevodi = 600;
                         var caloriesCondition = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100));
                         var belkiCondition = query.Where(y => int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200);
-                        var zhiriCondition = query.Where(y => int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri + 200);
-                        var uglevodiCondition = query.Where(y => int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi + 200);
+                        var zhiriCondition = query.Where(y => int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri/3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri/3 + 200);
+                        var uglevodiCondition = query.Where(y => int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi /3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi/3 + 200);
 
                         Console.WriteLine("Calories condition count: " + caloriesCondition.Count());
                         Console.WriteLine("Belki condition count: " + belkiCondition.Count());
                         Console.WriteLine("Zhiri condition count: " + zhiriCondition.Count());
                         Console.WriteLine("Uglevodi condition count: " + uglevodiCondition.Count());
-                        
+
+                        query = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100) &&
+                           int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200 &&
+                           int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri / 3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri / 3 + 200 &&
+                           int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi / 3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi / 3 + 200);
+
                         _filteredData = query.ToList();
                         Calories.Visibility = Visibility.Hidden;
                         AnswerA.Visibility = Visibility.Visible;
