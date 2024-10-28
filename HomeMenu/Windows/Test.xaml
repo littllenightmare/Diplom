@@ -26,6 +26,6 @@
         <Label x:Name="AnswerB" Grid.ColumnSpan="3" Content="Среднестат. мужчина" HorizontalAlignment="Center" Height="71" Grid.Row="2" VerticalAlignment="Center" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="BClick"/>
         <Label x:Name="AnswerC" Grid.ColumnSpan="3" Content="Среднестат. женщина" HorizontalAlignment="Center" Height="71" Grid.Row="3" VerticalAlignment="Center" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="CClick"/>
         <Label x:Name="AnswerD" Grid.ColumnSpan="3" Content="Помоги рассчитать" HorizontalAlignment="Center" Height="71" Grid.Row="4" VerticalAlignment="Center" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="DClick"/>
-        <TextBox Background="#FFFBFDF0" x:Name="Calories" Text="" HorizontalAlignment="Center" Height="71" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="AClick" KeyUp="AClick"/>
+        <TextBox IsReadOnly="True" Background="#FFFBFDF0" x:Name="Calories" Text="" HorizontalAlignment="Center" Height="71" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Width="300" FontSize="20" FontFamily="XO Courser" BorderBrush="Black" BorderThickness="1" MouseLeftButtonUp="AClick" KeyUp="AClick"/>
     </Grid>
 </Window>

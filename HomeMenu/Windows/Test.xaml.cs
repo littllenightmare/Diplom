@@ -16,18 +16,18 @@ namespace HomeMenu
     {
         Yum yum = new Yum();
         private List<Yum> _filteredData;
-        MenuContext _context = new MenuContext();
+        static MenuContext _context = new MenuContext();
 
         public Test()
         {
             InitializeComponent();
         }
         int checker = 0, calories = 0, belki = 0, zhiri = 0, uglevodi = 0;
+        IEnumerable<Yum> query = _context.Yums.AsEnumerable();
+        
 
         private void AClick(object sender, MouseButtonEventArgs e)
         {
-
-            var query = _context.Yums.AsEnumerable();
             try
             {
                 switch (checker)
@@ -76,11 +76,10 @@ namespace HomeMenu
                         break;
                 }
             }
-            catch { MessageBox.Show("ass"); }
+            catch { MessageBox.Show("ass");  }
         }
         private void AClick(object sender, KeyEventArgs e)
         {
-            var query = _context.Yums.AsEnumerable();
             try
             {
                 switch (checker)
@@ -135,7 +134,6 @@ namespace HomeMenu
 
         private void BClick(object sender, MouseButtonEventArgs e)
         {
-            var query = _context.Yums.AsEnumerable();
             try
             {
                 switch (checker)
@@ -146,7 +144,7 @@ namespace HomeMenu
                         var caloriesCondition = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100));
                         var belkiCondition = query.Where(y => int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200);
                         var zhiriCondition = query.Where(y => int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri /3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri/3 + 200);
-                        var uglevodiCondition = query.Where(y => int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi /3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi/3 + 200);
+                        var uglevodiCondition = query.Where(y => int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 250 >= uglevodi /3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi/3 + 250);
 
                         Console.WriteLine("Calories condition count: " + caloriesCondition.Count());
                         Console.WriteLine("Belki condition count: " + belkiCondition.Count());
@@ -156,7 +154,7 @@ namespace HomeMenu
                         query = query.Where(y => (int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 100) >= (calories / 3) && int.Parse(y.КалорииФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= (calories / 3 + 100) &&
                             int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= belki / 3 && int.Parse(y.БелкиФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.ToString()) <= belki / 3 + 200 &&
                             int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= zhiri / 3 && int.Parse(y.ЖирыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= zhiri / 3 + 200 &&
-                            int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 200 >= uglevodi / 3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi / 3 + 200);
+                            int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) + 250 >= uglevodi / 3 && int.Parse(y.УглеводыФулл.GetValueOrDefault().ToString()) / int.Parse(y.Порции.GetValueOrDefault().ToString()) <= uglevodi / 3 + 250);
 
                         _filteredData = query.ToList();
                         Calories.Visibility = Visibility.Hidden;
@@ -174,6 +172,7 @@ namespace HomeMenu
                         DishInfo di = new DishInfo();
                         di.Show();
                         Random rnd = new Random();
+                        Console.WriteLine(query.Count());
                         var dish = query.ElementAt(rnd.Next(query.Count()));
                         this.Close();
                         di.GetDish(dish);
@@ -188,7 +187,6 @@ namespace HomeMenu
 
         private void CClick(object sender, MouseButtonEventArgs e)
         {
-            var query = _context.Yums.AsEnumerable();
             try
             {
                 switch (checker)
@@ -240,7 +238,6 @@ namespace HomeMenu
 
         private void DClick(object sender, MouseButtonEventArgs e)
         {
-            var query = _context.Yums.AsEnumerable();
             try
             {
                 switch (checker)
