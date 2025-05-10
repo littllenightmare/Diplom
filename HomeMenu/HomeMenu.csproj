@@ -7,10 +7,6 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Windows\Info\Icon.jpg" />
-    <None Remove="Windows\Info\Menu.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
@@ -21,10 +17,7 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Windows\Info\Icon.jpg" />
-    <Resource Include="Windows\Info\Menu.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Database\" />
+    <Folder Include="Images\" />
   </ItemGroup>
 </Project>

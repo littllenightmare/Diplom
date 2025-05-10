@@ -4,6 +4,7 @@ namespace HomeMenu.Functions
 {
     class Data
     {
-        public static Yum yum;
+        public static string email;
+        public static bool forget = false;
     }
 }

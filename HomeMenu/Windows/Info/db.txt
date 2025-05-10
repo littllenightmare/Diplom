@@ -1,1 +1,0 @@
-Scaffold-DbContext "Host=localhost;Port=5000;Database=Menu;Username=postgres;Password=123456789" Npgsql.EntityFrameworkCore.PostgreSQL -force -OutputDir Database
