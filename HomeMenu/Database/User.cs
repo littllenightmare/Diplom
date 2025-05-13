@@ -18,6 +18,4 @@ public partial class User
     public virtual ICollection<Profile> Profiles { get; set; } = new List<Profile>();
 
     public virtual Role RoleNavigation { get; set; }
-
-    public virtual ICollection<Dish> Dishes { get; set; } = new List<Dish>();
 }

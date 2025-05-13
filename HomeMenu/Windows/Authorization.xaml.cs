@@ -31,7 +31,7 @@ namespace HomeMenu
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            if (!Functions.Authorization.Authorize(tbLogin.Text, tbPassword.Text))
+            if (!Functions.Authorization.Authorize(tbLogin.Text, tbPassword.Password))
             {
                 MessageBox.Show("Неправильный логин или пароль!");
             }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu"
         mc:Ignorable="d"
-        Title="Авторизация" Icon="../Images/Icon.png" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Авторизация" x:Name="authorize" Icon="/Images/Icon.png" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Label" x:Key="HoverLabelStyle">
             <Setter Property="Foreground" Value="Black" />
@@ -32,9 +32,9 @@
         </Grid.ColumnDefinitions>
         <Label Content="АВТОРИЗАЦИЯ" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="50" VerticalAlignment="Center" FontWeight="Black" HorizontalAlignment="Center"/>
         <Label Content="ПОЧТА" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="40" Grid.Row="1" VerticalAlignment="Bottom" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
-        <TextBox x:Name="tbLogin" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="30" Grid.Row="2" VerticalAlignment="Center" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
+        <TextBox Width="550" x:Name="tbLogin" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="30" Grid.Row="2" VerticalAlignment="Center" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
         <Label Content="ПАРОЛЬ" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="40" Grid.Row="3" VerticalAlignment="Bottom" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
-        <TextBox x:Name="tbPassword" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="30" Grid.Row="4" VerticalAlignment="Center" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
+        <PasswordBox Width="550" x:Name="tbPassword" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="30" Grid.Row="4" VerticalAlignment="Center" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
         <Button Content="Войти" Grid.ColumnSpan="2" Click="LoginClick" FontFamily="Corbel" FontSize="50" Grid.Row="5" VerticalAlignment="Center" Width="350" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="7" FontWeight="Black" HorizontalAlignment="Center"/>
         <Label Style="{StaticResource HoverLabelStyle}" Content="Забыли пароль?" MouseLeftButtonUp="ForgotPasswordClick" FontFamily="Corbel" FontSize="30" Grid.Row="6" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center" FontStyle="Italic"/>
         <Label Style="{StaticResource HoverLabelStyle}" Content="Регистрация" MouseLeftButtonUp="RegistrationClick" FontFamily="Corbel" FontSize="30" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center" FontStyle="Italic"/>

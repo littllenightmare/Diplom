@@ -3,6 +3,7 @@ using HomeMenu.Functions;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 namespace HomeMenu
 {
@@ -18,12 +19,12 @@ namespace HomeMenu
             InitializeComponent();
             if (Data.forget == true)
             {
-                Titlelb.Content = "ВОССТАНОВЛЕНИЕ ПАРОЛЯ";
+                Titlelb.Content = "Восстановление пароля";
                 action = "forget";
             }
         }
         
-        private async void NextClick(object sender, RoutedEventArgs e)
+        private void NextClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -32,10 +33,30 @@ namespace HomeMenu
                     var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
                     if (!emailRegex.IsMatch(tbEmail.Text))
                         MessageBox.Show("Неверный формат адреса электронной почты.");
+                    Register:
+                    if (action == "email" && context.Users.FirstOrDefault(u => u.Email == tbEmail.Text) != null)
+                    {
+                        MessageBoxResult result = MessageBox.Show("Пользователь с такой почтой уже пытался зарегистрироваться. Вы хотите удалить старый аккаунт и создать новый?", default, MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            var user = context.Users.First(u => u.Email == tbEmail.Text);
+                            context.Users.Remove(user);
+                            context.SaveChangesAsync();
+                            goto Register;
+
+                        }
+                        else
+                        {
+                            Authorization authorization = new();
+                            authorization.Show();
+                            this.Close();
+                        }
+                    }
                     else
                     {
                         if (action == "email") Functions.Authorization.SendEmail(tbEmail.Text);
                         else Functions.Authorization.ForgetPassword(tbEmail.Text);
+                        tbEmail.Clear();
                         Emaillb.Content = "ВВЕДИТЕ КОД С ПОЧТЫ";
                         action = "check";
                         Data.email = tbEmail.Text;
@@ -48,6 +69,7 @@ namespace HomeMenu
                         MessageBox.Show("Код введён неверно!");
                     else
                     {
+                        tbEmail.Clear();
                         Emaillb.Content = "ВВЕДИТЕ ПАРОЛЬ";
                         action = "password";
                     }
@@ -55,16 +77,28 @@ namespace HomeMenu
 
                 else if (action == "password")
                 {
-                    Functions.Authorization.SetPassword(tbEmail.Text);
-                    Authorization authorization = new();
-                    authorization.Show();
-                    this.Close();
+                    if (tbEmail.Text.Length < 2 || tbEmail.Text.Length >10)
+                        MessageBox.Show("Пароль должен состоять хотя бы из 2 символов и не больше 10.");
+                    else
+                    {
+                        Functions.Authorization.SetPassword(tbEmail.Text);
+                        Authorization authorization = new();
+                        authorization.Show();
+                        this.Close();
+                    }
                 }
             }
             catch
             {
 
             }
+        }
+
+        private void ReturnClick(object sender, RoutedEventArgs e)
+        {
+            Authorization authorization = new();
+            authorization.Show();
+            this.Close();
         }
     }
 }

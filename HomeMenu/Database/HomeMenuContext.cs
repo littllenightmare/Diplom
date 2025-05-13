@@ -107,25 +107,6 @@ public partial class HomeMenuContext : DbContext
             entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Role)
                 .HasConstraintName("Users_Role_fkey");
-
-            entity.HasMany(d => d.Dishes).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Favorite",
-                    r => r.HasOne<Dish>().WithMany()
-                        .HasForeignKey("DishId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("Favorites_Dish_id_fkey"),
-                    l => l.HasOne<User>().WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("Favorites_User_id_fkey"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "DishId").HasName("Favorites_pkey");
-                        j.ToTable("Favorites");
-                        j.IndexerProperty<int>("UserId").HasColumnName("User_id");
-                        j.IndexerProperty<int>("DishId").HasColumnName("Dish_id");
-                    });
         });
 
         OnModelCreatingPartial(modelBuilder);

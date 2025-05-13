@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Net;
 using HomeMenu.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomeMenu.Functions
 {
@@ -13,25 +14,23 @@ namespace HomeMenu.Functions
             HomeMenuContext context = new();
             try
             {
-                MailAddress fromAdress = new("kulkovangel@yandex.ru", "Диплом");
+                MailAddress fromAdress = new("a.kulkova@nekto-z.ru", "Диплом");
                 MailAddress ToAdress = new(email);
                 MailMessage mail = new(fromAdress, ToAdress);
 
                 var rnd = new Random();
-                string code = "";
-                for (int i = 0; i < 6; i++)
-                {
-                    code += rnd.Next(9);
-                }
+                var code = rnd.Next(100000, 999999);
 
                 var user = new User
                 {
                     Email = email,
-                    Code = Int32.Parse(code),
+                    Code = code,
                     Role = 1
                 };
                 context.Users.Add(user);
                 await context.SaveChangesAsync();
+
+                Data.email = email;
 
                 mail.Body = string.Format(@"
 <!DOCTYPE html>
@@ -83,14 +82,13 @@ namespace HomeMenu.Functions
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(fromAdress.Address, "kulkovangel05")
+                    Credentials = new NetworkCredential(fromAdress.Address, "Qq123789!")
                 };
 
                 smtpClient.Send(mail);
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e.ToString());
             }
         }
         public async static void SetPassword(string password)
@@ -126,19 +124,19 @@ namespace HomeMenu.Functions
             HomeMenuContext context = new();
             try
             {
-                MailAddress fromAdress = new("kulkovangel@yandex.ru", "Диплом");
+                MailAddress fromAdress = new("a.kulkova@nekto-z.ru", "Диплом");
                 MailAddress ToAdress = new(email);
                 MailMessage mail = new(fromAdress, ToAdress);
 
                 var rnd = new Random();
-                string code = "";
-                for (int i = 0; i < 6; i++)
-                {
-                    code += rnd.Next(9);
-                }
+                var code = rnd.Next(100000, 999999);
 
-                context.Users.FirstOrDefault(u=> u.Email == email).Code = Int32.Parse(code);
+                var user = context.Users.FirstOrDefault(u => u.Email == email);
+                user.Code = code;
+                context.Users.Update(user);
                 await context.SaveChangesAsync();
+
+                Data.email = email;
 
                 mail.Body = string.Format(@"
 <!DOCTYPE html>
@@ -190,7 +188,7 @@ namespace HomeMenu.Functions
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(fromAdress.Address, "kulkovangel05")
+                    Credentials = new NetworkCredential(fromAdress.Address, "Qq123789!")
                 };
 
                 smtpClient.Send(mail);

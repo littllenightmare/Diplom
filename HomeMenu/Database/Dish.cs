@@ -36,6 +36,4 @@ public partial class Dish
     public virtual Profile AuthorNavigation { get; set; }
 
     public virtual Category CategoryNavigation { get; set; }
-
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

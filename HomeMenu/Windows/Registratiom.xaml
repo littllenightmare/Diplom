@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu"
         mc:Ignorable="d"
-        Title="Авторизация" Icon="../Images/Icon.png" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Авторизация" Icon="/Images/Icon.png" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Label" x:Key="HoverLabelStyle">
             <Setter Property="Foreground" Value="Black" />
@@ -18,10 +18,10 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.7*"/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.8*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -29,7 +29,8 @@
         </Grid.ColumnDefinitions>
         <Label x:Name="Titlelb" Content="РЕГИСТРАЦИЯ" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="50" VerticalAlignment="Center" FontWeight="Black" HorizontalAlignment="Center"/>
         <Label x:Name="Emaillb" Content="ВВЕДИТЕ ПОЧТУ" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="40" Grid.Row="1" VerticalAlignment="Bottom" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
-        <TextBox x:Name="tbEmail" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="30" Grid.Row="2" VerticalAlignment="Center" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
-        <Button Content="Далее" Grid.ColumnSpan="2" Click="NextClick" FontFamily="Corbel" FontSize="50" Grid.Row="5" VerticalAlignment="Center" Width="350" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="7" FontWeight="Black" HorizontalAlignment="Center"/>
+        <TextBox Width="550" x:Name="tbEmail" Grid.ColumnSpan="2" FontFamily="Corbel" FontSize="30" Grid.Row="2" VerticalAlignment="Center" FontWeight="Black" HorizontalAlignment="Left" Margin="10, 0"/>
+        <Button Content="Далее" Click="NextClick" FontFamily="Corbel" FontSize="40" Grid.Row="5" VerticalAlignment="Center" Width="250" Background="LightBlue" Grid.Column="1" BorderBrush="CornflowerBlue" BorderThickness="7" FontWeight="Black" HorizontalAlignment="Center"/>
+        <Button Content="Авторизация" Click="ReturnClick" FontFamily="Corbel" FontSize="40" Grid.Row="5" VerticalAlignment="Center" Width="250" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="7" FontWeight="Black" HorizontalAlignment="Center"/>
     </Grid>
 </Window>

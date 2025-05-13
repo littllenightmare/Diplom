@@ -1,0 +1,47 @@
+﻿<Window x:Class="HomeMenu.Windows.DishInfoPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HomeMenu.Windows"
+        mc:Ignorable="d"
+        Title="Информация о блюде" Icon="/Images/Icon.png" Height="800" Width="1600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition Width="0.12*"/>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition Width="0.22*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.13*"/>
+            <ColumnDefinition Width="0.13*"/>
+            <ColumnDefinition Width="0.13*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.55*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="PhotoImage" Grid.RowSpan="4" Grid.ColumnSpan="3" Grid.Column="2" Width="330" Height="330" HorizontalAlignment="Left" Margin="30,0"/>
+        <TextBlock x:Name="Nametb" HorizontalAlignment="Center" Text="" FontFamily="Corbel" FontSize="40" Grid.ColumnSpan="4" Grid.Column="4"/>
+        <TextBlock x:Name="Timetb" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="1"><Run Text="Приготовление: " FontFamily="Corbel" FontSize="25"/> <Run x:Name="TimeRun" Text="" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="3"><Run Text="Сложность: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="DifficultRun" FontFamily="Corbel" FontSize="25"/><Run Text=" / 5" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="2" Grid.Column="4"><Run Text="Порции: " FontFamily="Corbel" FontSize="25"/><Run x:Name="PortionRun" Text="" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <TextBlock x:Name="Categorytb" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3" Text="" FontFamily="Corbel" FontSize="25"></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"><Run Text="Калории: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="CaloriesRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="3" Grid.Column="5"><Run Text="Белки: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="ProteinsRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Column="6" Grid.Row="3"><Run Text="Жиры: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="FatsRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Column="7" Grid.Row="3"><Run Text="Углеводы: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="CarbohydratesRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"><Run Text="" x:Name="AuthorRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <Image x:Name="AuthorImage" Grid.Row="1">
+            <Image.Clip>
+                <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+            </Image.Clip>
+        </Image>
+        <TextBox x:Name="Recipetb" IsReadOnly="True" Grid.Row="5" Grid.ColumnSpan="4" Grid.Column="4" TextWrapping="Wrap" FontFamily="Corbel" FontSize="25"/>
+        <TextBox x:Name="Ingridientstb" Grid.Row="5" IsReadOnly="True" Grid.ColumnSpan="4" TextWrapping="Wrap" FontFamily="Corbel" FontSize="25"/>
+        <Button Content="Назад" Click="ReturnClick" Height="55" Margin="10" FontFamily="Corbel" Grid.ColumnSpan="2" FontSize="25" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5"/>
+    </Grid>
+</Window>

@@ -5,20 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu"
         mc:Ignorable="d"
-        Title="Всё для тебя, любовь моя" Icon="../Images/Icon.png" Height="800" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Главная" Icon="/Images/Icon.png" Height="800" Width="1600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.15*"/>
+            <ColumnDefinition Width="0.35*"/>
+            <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="1" Content="Привет! Что сегодня поедим?" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="80" VerticalAlignment="Center" Width="335" FontSize="20" FontFamily="XO Courser"/>
+        <ListView SelectionChanged="DishChoosed" x:Name="Disheslv" Grid.Row="1" Grid.ColumnSpan="4" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Width="450" Height="450" HorizontalAlignment="Center" Source="{Binding Photo}"/>
+                        <TextBlock Width="750" FontFamily="Corbel" FontSize="30" Text="{Binding Name}" TextAlignment="Center" Grid.Row="1"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBox FontFamily="Corbel" FontSize="20" x:Name="FindTb" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="800"/>
+        <Button Content="Найти" FontFamily="Corbel" FontSize="30" Click="FindClick" Grid.Column="2" Height="50" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5"/>
+        <Image x:Name="noImage" Source="/Images/no.png" MouseLeftButtonUp="NoClick" Grid.Column="1" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Image x:Name="profileImage" MouseLeftButtonUp="ProfileClick" Source="/Images/profile.webp" Grid.Column="3" Height="90" Width="90" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <Image x:Name="addImage" MouseLeftButtonUp="AddClick" Source="/Images/add.png" Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </Window>
