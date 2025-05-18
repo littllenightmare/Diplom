@@ -34,8 +34,8 @@
         <TextBlock HorizontalAlignment="Center" Grid.Row="3" Grid.Column="5"><Run Text="Белки: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="ProteinsRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
         <TextBlock HorizontalAlignment="Center" Grid.Column="6" Grid.Row="3"><Run Text="Жиры: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="FatsRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
         <TextBlock HorizontalAlignment="Center" Grid.Column="7" Grid.Row="3"><Run Text="Углеводы: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="CarbohydratesRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
-        <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"><Run Text="" x:Name="AuthorRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
-        <Image x:Name="AuthorImage" Grid.Row="1">
+        <TextBlock MouseLeftButtonUp="GoToProfile" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"><Run Text="" x:Name="AuthorRun" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <Image x:Name="AuthorImage" Grid.Row="1" MouseLeftButtonUp="GoToProfile">
             <Image.Clip>
                 <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
             </Image.Clip>

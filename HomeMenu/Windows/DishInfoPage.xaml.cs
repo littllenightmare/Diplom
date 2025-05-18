@@ -52,5 +52,15 @@ namespace HomeMenu.Windows
             main.Show();
             this.Close();
         }
+
+        private void GoToProfile(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (context.Profiles.FirstOrDefault(p => p.Name == AuthorRun.Text) != null)
+            {
+                ProfilePage profilePage = new();
+                profilePage.Show();
+                this.Close();
+            }
+        }
     }
 }

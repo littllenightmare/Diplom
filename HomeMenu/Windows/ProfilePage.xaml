@@ -5,8 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu.Windows"
         mc:Ignorable="d"
-        Title="ProfilePage" Icon="/Images/Icon.png" Height="450" Width="800">
+        Title="ProfilePage" Icon="/Images/Icon.png" Height="450" Width="800" ResizeMode="CanMinimize">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ListView SelectionChanged="DishChoosed" x:Name="Disheslv" Grid.RowSpan="4" Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Width="450" Height="450" HorizontalAlignment="Center" Source="{Binding Photo}"/>
+                        <TextBlock Width="750" FontFamily="Corbel" FontSize="30" Text="{Binding Name}" TextAlignment="Center" Grid.Row="1"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock Text="{Binding Name}"/>
+        <TextBlock Text="{Binding Description}" Grid.Row="1"/>
+        <Image Source="{Binding Photo}" Grid.RowSpan="2" Grid.Column="1"/>
+        <Button x:Name="Returnbtn" Visibility="Hidden" Click="ReturnClick" Content="На главную" Width="180" FontFamily="Corbel" Grid.Column="1" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="Exitbtn" Visibility="Hidden" Click="ExitClick" Content="Выйти" Width="180" FontFamily="Corbel" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="Editbtn" Visibility="Hidden" Click="EditClick" Content="Редактировать" Width="180" FontFamily="Corbel" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="Buybtn" Visibility="Hidden" Click="BuyClick" Content="Подписка" Width="180" FontFamily="Corbel" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Window>

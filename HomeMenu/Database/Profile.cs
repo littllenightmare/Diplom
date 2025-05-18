@@ -15,8 +15,6 @@ public partial class Profile
 
     public string Description { get; set; }
 
-    public string Banner { get; set; }
-
     public virtual ICollection<Dish> Dishes { get; set; } = new List<Dish>();
 
     public virtual User User { get; set; }

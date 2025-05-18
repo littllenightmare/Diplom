@@ -37,6 +37,7 @@ namespace HomeMenu
             }
             else
             {
+                Data.email = tbLogin.Text;
                 MainWindow mainWindow = new();
                 mainWindow.Show();
                 this.Close();

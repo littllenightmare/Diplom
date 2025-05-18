@@ -7,5 +7,6 @@ namespace HomeMenu.Functions
         public static string email;
         public static bool forget = false;
         public static Dish dish;
+        public static Profile profile;
     }
 }
