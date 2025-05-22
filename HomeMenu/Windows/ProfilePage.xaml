@@ -38,12 +38,17 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock Text="{Binding Name}"/>
-        <TextBlock Text="{Binding Description}" Grid.Row="1"/>
-        <Image Source="{Binding Photo}" Grid.RowSpan="2" Grid.Column="1"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox x:Name="NameTextBlock" FontFamily="Corbel" FontSize="30" Text="{Binding Name}" TextAlignment="Center"/>
+            <Button x:Name="EditNameBtn" Content="✏️" FontSize="20" Margin="5,0" Click="EditName_Click" Visibility="Collapsed" Background="Transparent" BorderBrush="Transparent"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox x:Name="DescTextBlock" FontFamily="Corbel" FontSize="20" Text="{Binding Description}" TextAlignment="Center" TextWrapping="Wrap" Width="600"/>
+            <Button x:Name="EditDescBtn" Content="✏️" FontSize="20" Margin="5,0" Click="EditDesc_Click" Visibility="Collapsed" Background="Transparent" BorderBrush="Transparent"/>
+        </StackPanel>
+        <Image Source="{Binding Photo}" Grid.RowSpan="2" Grid.Column="1" MouseLeftButtonUp="LoadImageClick" x:Name="PhotoImage"/>
         <Button x:Name="Returnbtn" Visibility="Hidden" Click="ReturnClick" Content="На главную" Width="180" FontFamily="Corbel" Grid.Column="1" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="Exitbtn" Visibility="Hidden" Click="ExitClick" Content="Выйти" Width="180" FontFamily="Corbel" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="Editbtn" Visibility="Hidden" Click="EditClick" Content="Редактировать" Width="180" FontFamily="Corbel" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="Buybtn" Visibility="Hidden" Click="BuyClick" Content="Подписка" Width="180" FontFamily="Corbel" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Window>
