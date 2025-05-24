@@ -21,6 +21,8 @@ public partial class HomeMenuContext : DbContext
 
     public virtual DbSet<Ingridient> Ingridients { get; set; }
 
+    public virtual DbSet<Payment> Payments { get; set; }
+
     public virtual DbSet<Profile> Profiles { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
@@ -68,6 +70,20 @@ public partial class HomeMenuContext : DbContext
 
             entity.Property(e => e.Id).UseIdentityAlwaysColumn();
             entity.Property(e => e.Name).HasColumnType("character varying");
+        });
+
+        modelBuilder.Entity<Payment>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Payments_pkey");
+
+            entity.Property(e => e.Id).HasColumnType("character varying");
+            entity.Property(e => e.Description).HasColumnType("character varying");
+            entity.Property(e => e.FailUrl).HasColumnType("character varying");
+            entity.Property(e => e.SuccessUrl).HasColumnType("character varying");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Payments)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("Payments_UserId_fkey");
         });
 
         modelBuilder.Entity<Profile>(entity =>

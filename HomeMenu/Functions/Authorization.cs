@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Net;
 using HomeMenu.Database;
-using Microsoft.EntityFrameworkCore;
 
 namespace HomeMenu.Functions
 {
@@ -14,7 +13,7 @@ namespace HomeMenu.Functions
             HomeMenuContext context = new();
             try
             {
-                MailAddress fromAdress = new("a.kulkova@nekto-z.ru", "Диплом");
+                MailAddress fromAdress = new(Environment.GetEnvironmentVariable("EMAIL"), "Диплом");
                 MailAddress ToAdress = new(email);
                 MailMessage mail = new(fromAdress, ToAdress);
 
@@ -82,7 +81,7 @@ namespace HomeMenu.Functions
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(fromAdress.Address, "Qq123789!")
+                    Credentials = new NetworkCredential(fromAdress.Address, Environment.GetEnvironmentVariable("EMAIL_PASSWORD"))
                 };
 
                 smtpClient.Send(mail);

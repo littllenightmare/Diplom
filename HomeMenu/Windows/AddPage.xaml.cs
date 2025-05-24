@@ -24,6 +24,13 @@ namespace HomeMenu.Windows
         public AddPage()
         {
             InitializeComponent();
+            if (context.Users.FirstOrDefault(u => u.Email == Data.email).Role != 2)
+            {
+                MessageBox.Show("Создать блюдо можно только оплатив подписку!");
+                ProfilePage profile = new ProfilePage();
+                profile.Show();
+                this.Close();
+            }
             DifficultComboBox.ItemsSource = new List<string>
     {
         "1",

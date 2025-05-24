@@ -2,7 +2,9 @@
 using HomeMenu.Functions;
 using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -55,9 +57,29 @@ namespace HomeMenu.Windows
             this.Close();
         }
 
-        private void BuyClick(object sender, RoutedEventArgs e)
+        private async void BuyClick(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                string orderId = Guid.NewGuid().ToString();
+                int amount = 1000;
+                string description = "Оплата подписки";
+                var user = context.Users.FirstOrDefault(u => u.Email == Data.email);
 
+                var paymentResult = await Main.CreatePay(amount, orderId, description, user.Id);
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = paymentResult,
+                    UseShellExecute = true
+                });
+
+                await Task.Delay(60000);
+
+                user.Role = 2;
+                await context.SaveChangesAsync();
+                MessageBox.Show("Оплата прошла успешно! Ваш аккаунт обновлен до премиум-статуса.");
+            }
+            catch { }
         }
 
         private void LoadImageClick(object sender, MouseButtonEventArgs e)

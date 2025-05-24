@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Tinkoff.Trading.OpenApi.Network;
+using Tinkoff.Trading.OpenApi.Models;
+using System.Net.Http;
+using System;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace HomeMenu.Functions
 {
@@ -49,6 +55,49 @@ namespace HomeMenu.Functions
                 return false;
             }
             return true;
+        }
+        public static async Task<string> CreatePay(int amount, string orderId, string description, int userId)
+        {
+            var httpClient = new HttpClient();
+            var paymentService = new PaymentService(Environment.GetEnvironmentVariable("TERMINAL_KEY"), Environment.GetEnvironmentVariable("SECRET_KEY"), httpClient);
+            var payment = new Payment
+            {
+                Amount = amount,
+                Id = orderId,
+                Description = description,
+                UserId = userId,
+                SuccessUrl = "https://nekto-z.tech",
+                FailUrl = "https://nekto-z.tech"
+            };
+
+            var paymentUrl = await paymentService.InitPayment(payment);
+            return paymentUrl;
+        }
+        public class PaymentService
+        {
+            private readonly HttpClient _httpClient;
+            private readonly string _terminalKey;
+            private readonly string _secretKey;
+            public PaymentService(string terminalKey, string secretKey, HttpClient httpClient)
+            {
+                _terminalKey = terminalKey;
+                _secretKey = secretKey;
+                _httpClient = httpClient;
+            }
+            public async Task<string> InitPayment(Payment payment)
+            {
+                var httpClient = new HttpClient();
+                var response = await httpClient.PostAsync("https://rest-api-test.tinkoff.ru/v2/init", new StringContent(JsonConvert.SerializeObject(payment), Encoding.UTF8, "application/json"));
+                response.EnsureSuccessStatusCode();
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var paymentResponse = JsonConvert.DeserializeObject<PaymentResponse>(jsonResponse);
+                return paymentResponse.PaymentUrl;
+            }
+        }
+        public class PaymentResponse
+        {
+            public string PaymentUrl { get; set; }
+            public string Status { get; set; }
         }
     }
 }

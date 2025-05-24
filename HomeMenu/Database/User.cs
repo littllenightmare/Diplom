@@ -15,6 +15,8 @@ public partial class User
 
     public int? Code { get; set; }
 
+    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+
     public virtual ICollection<Profile> Profiles { get; set; } = new List<Profile>();
 
     public virtual Role RoleNavigation { get; set; }
