@@ -32,7 +32,6 @@ namespace HomeMenu
                     var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
                     if (!emailRegex.IsMatch(tbEmail.Text))
                         MessageBox.Show("Неверный формат адреса электронной почты.");
-                    Register:
                     if (action == "email" && context.Users.FirstOrDefault(u => u.Email == tbEmail.Text) != null)
                     {
                         MessageBoxResult result = MessageBox.Show("Пользователь с такой почтой уже пытался зарегистрироваться. Вы хотите удалить старый аккаунт и создать новый?", default, MessageBoxButton.YesNo);
@@ -41,8 +40,6 @@ namespace HomeMenu
                             var user = context.Users.First(u => u.Email == tbEmail.Text);
                             context.Users.Remove(user);
                             context.SaveChangesAsync();
-                            goto Register;
-
                         }
                         else
                         {

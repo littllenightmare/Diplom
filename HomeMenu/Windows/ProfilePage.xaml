@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu.Windows"
         mc:Ignorable="d"
-        Title="ProfilePage" Icon="/Images/Icon.png" Height="450" Width="800" ResizeMode="CanMinimize">
+        Title="ProfilePage" Icon="/Images/Icon.png" Height="800" Width="1600" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -39,15 +39,15 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="NameTextBlock" FontFamily="Corbel" FontSize="30" Text="{Binding Name}" TextAlignment="Center"/>
+            <TextBox IsReadOnly="True" x:Name="NameTextBox" FontFamily="Corbel" FontSize="30" TextAlignment="Center" Width="600"/>
             <Button x:Name="EditNameBtn" Content="✏️" FontSize="20" Margin="5,0" Click="EditName_Click" Visibility="Collapsed" Background="Transparent" BorderBrush="Transparent"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="DescTextBlock" FontFamily="Corbel" FontSize="20" Text="{Binding Description}" TextAlignment="Center" TextWrapping="Wrap" Width="600"/>
+            <TextBox IsReadOnly="True" x:Name="DescTextBox" FontFamily="Corbel" FontSize="20" TextAlignment="Center" TextWrapping="Wrap" Width="600"/>
             <Button x:Name="EditDescBtn" Content="✏️" FontSize="20" Margin="5,0" Click="EditDesc_Click" Visibility="Collapsed" Background="Transparent" BorderBrush="Transparent"/>
         </StackPanel>
         <Image Source="{Binding Photo}" Grid.RowSpan="2" Grid.Column="1" MouseLeftButtonUp="LoadImageClick" x:Name="PhotoImage"/>
-        <Button x:Name="Returnbtn" Visibility="Hidden" Click="ReturnClick" Content="На главную" Width="180" FontFamily="Corbel" Grid.Column="1" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="Returnbtn" Click="ReturnClick" Content="На главную" Width="180" FontFamily="Corbel" Grid.Column="1" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="Exitbtn" Visibility="Hidden" Click="ExitClick" Content="Выйти" Width="180" FontFamily="Corbel" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="Buybtn" Visibility="Hidden" Click="BuyClick" Content="Подписка" Width="180" FontFamily="Corbel" FontSize="30" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>

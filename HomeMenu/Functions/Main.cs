@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Tinkoff.Trading.OpenApi.Network;
-using Tinkoff.Trading.OpenApi.Models;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 using System.Net.Http;
-using System;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -56,10 +55,10 @@ namespace HomeMenu.Functions
             }
             return true;
         }
-        public static async Task<string> CreatePay(int amount, string orderId, string description, int userId)
+        public static async Task<string> CreatePay(int amount, string orderId, string description, int userId, IConfiguration configuration)
         {
             var httpClient = new HttpClient();
-            var paymentService = new PaymentService(Environment.GetEnvironmentVariable("TERMINAL_KEY"), Environment.GetEnvironmentVariable("SECRET_KEY"), httpClient);
+            var paymentService = new PaymentService(configuration, httpClient);
             var payment = new Payment
             {
                 Amount = amount,
@@ -78,19 +77,20 @@ namespace HomeMenu.Functions
             private readonly HttpClient _httpClient;
             private readonly string _terminalKey;
             private readonly string _secretKey;
-            public PaymentService(string terminalKey, string secretKey, HttpClient httpClient)
+            public PaymentService(IConfiguration configuration, HttpClient httpClient)
             {
-                _terminalKey = terminalKey;
-                _secretKey = secretKey;
+                _terminalKey = configuration["PaymentSettings:TerminalKey"];
+                _secretKey = configuration["PaymentSettings:SecretKey"];
                 _httpClient = httpClient;
             }
             public async Task<string> InitPayment(Payment payment)
             {
-                var httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://rest-api-test.tinkoff.ru/v2/init", new StringContent(JsonConvert.SerializeObject(payment), Encoding.UTF8, "application/json"));
+                var jsonContent = JsonConvert.SerializeObject(payment);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("https://rest-api-test.tinkoff.ru/v2/init", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
                 response.EnsureSuccessStatusCode();
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                var paymentResponse = JsonConvert.DeserializeObject<PaymentResponse>(jsonResponse);
+                var paymentResponse = JsonConvert.DeserializeObject<PaymentResponse>(responseContent);
                 return paymentResponse.PaymentUrl;
             }
         }
@@ -100,4 +100,31 @@ namespace HomeMenu.Functions
             public string Status { get; set; }
         }
     }
+    public class Privacy
+        {
+            public class EmailSettings
+            {
+                public string Email { get; set; }
+                public string EmailPassword { get; set; }
+                public string TerminalKey { get; set; }
+                public string SecretKey { get; set; }
+            }
+            public static class ConfigurationHelper
+            {
+                public static IConfigurationRoot Configuration { get; private set; }
+                static ConfigurationHelper()
+                {
+                    var builder = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                    Configuration = builder.Build();
+                }
+                public static EmailSettings GetEmailSettings()
+                {
+                    var emailSettings = new EmailSettings();
+                    Configuration.GetSection("EmailSettings").Bind(emailSettings);
+                    return emailSettings;
+                }
+            }
+        }
 }

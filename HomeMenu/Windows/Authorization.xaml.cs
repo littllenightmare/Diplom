@@ -1,4 +1,6 @@
-﻿using HomeMenu.Functions;
+﻿using HomeMenu.Database;
+using HomeMenu.Functions;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,6 +11,7 @@ namespace HomeMenu
     /// </summary>
     public partial class Authorization : Window
     {
+        HomeMenuContext context = new();
         public Authorization()
         {
             InitializeComponent();
@@ -38,6 +41,7 @@ namespace HomeMenu
             else
             {
                 Data.email = tbLogin.Text;
+                Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == tbLogin.Text).Id);
                 MainWindow mainWindow = new();
                 mainWindow.Show();
                 this.Close();

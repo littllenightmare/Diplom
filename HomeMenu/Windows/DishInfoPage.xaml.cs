@@ -57,6 +57,7 @@ namespace HomeMenu.Windows
         {
             if (context.Profiles.FirstOrDefault(p => p.Name == AuthorRun.Text) != null)
             {
+                Data.profile = context.Profiles.FirstOrDefault(p => p.Name == AuthorRun.Text);
                 ProfilePage profilePage = new();
                 profilePage.Show();
                 this.Close();

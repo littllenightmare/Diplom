@@ -30,6 +30,7 @@ namespace HomeMenu.Windows
                 ProfilePage profile = new ProfilePage();
                 profile.Show();
                 this.Close();
+                return;
             }
             DifficultComboBox.ItemsSource = new List<string>
     {

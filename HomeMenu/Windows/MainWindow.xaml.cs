@@ -11,6 +11,7 @@ namespace HomeMenu
     /// </summary>
     public partial class MainWindow : Window
     {
+        HomeMenuContext context = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -52,8 +53,8 @@ namespace HomeMenu
 
         private void AddClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
             AddPage add = new();
-            add.Show();
             this.Close();
         }
 
