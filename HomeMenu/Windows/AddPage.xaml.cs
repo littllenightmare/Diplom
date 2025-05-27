@@ -21,6 +21,9 @@ namespace HomeMenu.Windows
     {
         HomeMenuContext context = new();
         private string _selectedImagePath;
+        /// <summary>
+        /// Начальное заполнение формы
+        /// </summary>
         public AddPage()
         {
             InitializeComponent();
@@ -35,12 +38,27 @@ namespace HomeMenu.Windows
             DifficultComboBox.ItemsSource = new List<string>
     {
         "1",
-        "2",
-        "3",
-        "4",
-        "5"
+                "2",
+                "3",
+                "4",
+                "5"
     };
+            List<string> categories = new List<string>();
+            foreach (var category in context.Categories)
+            {
+                if (!categories.Contains(category.Name))
+                {
+                    categories.Add(category.Name);
+                }
+            }
+            CategoryComboBox.ItemsSource = categories;
+            PhotoImage.Source = new BitmapImage(new Uri("/Images/Icon.png", UriKind.RelativeOrAbsolute));
         }
+        /// <summary>
+        /// Добавление ингредиента в список
+        /// </summary>
+        /// <param name="sender">кнопка плюсика</param>
+        /// <param name="e">нажатие на плюсик</param>
         private void AddIngridientClick(object sender, MouseButtonEventArgs e)
         {
             if (SearchListBox.SelectedItem != null)
@@ -74,6 +92,11 @@ namespace HomeMenu.Windows
                 }
             }
         }
+        /// <summary>
+        /// Поиск ингредиента
+        /// </summary>
+        /// <param name="sender">окошко ввода ингредиента</param>
+        /// <param name="e">добавление/удаление символа при вводе ингредиента</param>
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -97,6 +120,11 @@ namespace HomeMenu.Windows
                 Debug.WriteLine($"Ошибка поиска: {ex.Message}");
             }
         }
+        /// <summary>
+        /// Добавление этапа в рецепте
+        /// </summary>
+        /// <param name="sender">окно ввода рецепта</param>
+        /// <param name="e">нажатие enter при фокусе окошка ввода рецепта</param>
         private void RecipeTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -123,13 +151,22 @@ namespace HomeMenu.Windows
                 RecipeTextBox.SelectionStart = selectionStart + $"\n{lastNumber}. ".Length;
             }
         }
+        /// <summary>
+        /// Возврат на главную
+        /// </summary>
+        /// <param name="sender">кнопка На главную</param>
+        /// <param name="e">нажатие на кнопку</param>
         private void ReturnClick(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new();
             mainWindow.Show();
             this.Close();
         }
-
+        /// <summary>
+        /// Добавление рецепта
+        /// </summary>
+        /// <param name="sender">кнопка Сохранить</param>
+        /// <param name="e">нажатие на кнопку</param>
         private void SaveClick(object sender, RoutedEventArgs e)
         {
             try
@@ -142,9 +179,25 @@ namespace HomeMenu.Windows
                         return;
                     }
                 }
+                if (DifficultComboBox.SelectedItem == null)
+                {
+                    MessageBox.Show($"Выберите сложность из выпадающего списка.");
+                    return;
+                }
+                if (CategoryComboBox.SelectedItem == null)
+                {
+                    MessageBox.Show($"Выберите категорию из выпадающего списка.");
+                    return;
+                }
                 if (!Main.ValidateDish(NameTextBox.Text, PhotoImage.Source.ToString(), CaloriesTextBox.Text, ProteinsTextBox.Text, FatsTextBox.Text, CarbohydratesTextBox.Text,
-                    PortionsTextBox.Text, HoursTextBox.Text, MinutesTextBox.Text, RecipeTextBox.Text, IngredientsList.ItemsSource)) return;
-                var ingredientsJson = JsonConvert.SerializeObject(IngredientsList.Items.Cast<IngredientItem>().ToList());
+                    PortionsTextBox.Text, HoursTextBox.Text, MinutesTextBox.Text, RecipeTextBox.Text, IngredientsList.Items)) return;
+                
+                var ingredientsList = new List<string>();
+                foreach (IngredientItem item in IngredientsList.Items)
+                {
+                    ingredientsList.Add($"{item.Name}- {item.Amount}");
+                }
+                var ingredientsJson = JsonConvert.SerializeObject(ingredientsList);
 
                 var dish = new Dish
                 {
@@ -155,16 +208,19 @@ namespace HomeMenu.Windows
                     Carbohydrates = double.Parse(CarbohydratesTextBox.Text),
                     Portion = int.Parse(PortionsTextBox.Text),
                     Difficult = Int32.Parse(DifficultComboBox.SelectedItem.ToString()),
-                    Time = 60*int.Parse(HoursTextBox.Text)+int.Parse(MinutesTextBox.Text),
-                    Ingridients = ingredientsJson,
+                    Category = context.Categories.FirstOrDefault(c => c.Name == CategoryComboBox.SelectedItem).Id,
+                    Time = 60 * int.Parse(HoursTextBox.Text) + int.Parse(MinutesTextBox.Text),
+                    Ingridients = ingredientsJson, 
                     Photo = _selectedImagePath,
-                    Author = context.Users.FirstOrDefault(u=> u.Email == Data.email).Id,
+                    Author = Data.profile.Id,
                     Recipe = RecipeTextBox.Text
                 };
 
                 context.Dishes.Add(dish);
                 context.SaveChanges();
                 MessageBox.Show("Блюдо успешно добавлено!");
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
                 this.Close();
             }
             catch (Exception ex)
@@ -172,7 +228,11 @@ namespace HomeMenu.Windows
                 MessageBox.Show($"Ошибка при сохранении: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// Загрузка фото рецепта
+        /// </summary>
+        /// <param name="sender">картинка иконки</param>
+        /// <param name="e">нажатие на картинку</param>
         private void LoadImageClick(object sender, MouseButtonEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
@@ -187,12 +247,20 @@ namespace HomeMenu.Windows
                 PhotoImage.Source = new BitmapImage(new Uri(_selectedImagePath));
             }
         }
-
+        /// <summary>
+        /// Добавление ингредиента в рецепт
+        /// </summary>
+        /// <param name="sender">элемент из списка ингредиентов</param>
+        /// <param name="e">двойное нажатие на элемент</param>
         private void SearchListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             AddIngridientClick(sender, e);
         }
-
+        /// <summary>
+        /// Удаление ингредиента из рецепта
+        /// </summary>
+        /// <param name="sender">кнопка крестика</param>
+        /// <param name="e">нажатие на крестик</param>
         private void DeleteIngridientClick(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;

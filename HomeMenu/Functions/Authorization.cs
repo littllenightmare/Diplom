@@ -3,14 +3,17 @@ using System.Linq;
 using System.Net.Mail;
 using System.Net;
 using HomeMenu.Database;
-using Microsoft.Extensions.Configuration;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace HomeMenu.Functions
 {
     public class Authorization
     {
+        /// <summary>
+        /// Регистрация пользователя, инициализация письма с кодом и отправка на почту
+        /// </summary>
+        /// <param name="email">почтовый адрес</param>
+        /// <returns>ничего(</returns>
         public async static Task SendEmail(string email)
         {
             HomeMenuContext context = new();
@@ -88,7 +91,12 @@ namespace HomeMenu.Functions
                 Console.WriteLine($"Ошибка: {e.Message}");
             }
         }
-
+        /// <summary>
+        /// Отправка письма
+        /// </summary>
+        /// <param name="mail">письмо</param>
+        /// <param name="password">пароль</param>
+        /// <returns>ничего(</returns>
         private static async Task SendMail(MailMessage mail, string password)
         {
             using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.ru", 587))
@@ -99,7 +107,11 @@ namespace HomeMenu.Functions
                 await smtpClient.SendMailAsync(mail);
             }
         }
-
+        /// <summary>
+        /// Присвоение пароля пользователю
+        /// </summary>
+        /// <param name="password">пароль</param>
+        /// <returns>ничего(</returns>
         public async static Task SetPassword(string password)
         {
             try
@@ -117,7 +129,12 @@ namespace HomeMenu.Functions
                 Console.WriteLine($"Ошибка: {e.Message}");
             }
         }
-
+        /// <summary>
+        /// Авторизация
+        /// </summary>
+        /// <param name="email">почта</param>
+        /// <param name="password">пароль</param>
+        /// <returns>успешность авторизации</returns>
         public static bool Authorize(string email, string password)
         {
             try
@@ -131,7 +148,11 @@ namespace HomeMenu.Functions
                 return false;
             }
         }
-
+        /// <summary>
+        /// Сброс пароля
+        /// </summary>
+        /// <param name="email">почта</param>
+        /// <returns>ничего(</returns>
         public async static Task ForgetPassword(string email)
         {
             HomeMenuContext context = new();

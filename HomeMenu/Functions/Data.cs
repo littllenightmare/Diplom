@@ -2,6 +2,9 @@
 
 namespace HomeMenu.Functions
 {
+    /// <summary>
+    /// Класс для передачи данных между окнами
+    /// </summary>
     class Data
     {
         public static string email;

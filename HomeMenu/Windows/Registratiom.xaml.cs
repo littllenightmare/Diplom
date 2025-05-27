@@ -11,8 +11,14 @@ namespace HomeMenu
     /// </summary>
     public partial class Registration : Window
     {
+        /// <summary>
+        /// определяем, что этап - отправка почты
+        /// </summary>
         string action = "email";
         HomeMenuContext context = new();
+        /// <summary>
+        /// если восстановление пароля, немного меняем название и действие
+        /// </summary>
         public Registration()
         {
             InitializeComponent();
@@ -22,7 +28,11 @@ namespace HomeMenu
                 action = "forget";
             }
         }
-        
+        /// <summary>
+        /// метод нажатия на кнопку далее, основная логика отправки сообщения и присваивания пароля
+        /// </summary>
+        /// <param name="sender">кнопка Далее</param>
+        /// <param name="e">событие нажатия на кнопку</param>
         private void NextClick(object sender, RoutedEventArgs e)
         {
             try
@@ -89,7 +99,11 @@ namespace HomeMenu
 
             }
         }
-
+        /// <summary>
+        /// возврат на авторизацию
+        /// </summary>
+        /// <param name="sender">кнопка Назад</param>
+        /// <param name="e">событие нажатия на кнопку</param>
         private void ReturnClick(object sender, RoutedEventArgs e)
         {
             Authorization authorization = new();

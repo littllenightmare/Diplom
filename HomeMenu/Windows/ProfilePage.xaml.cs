@@ -2,9 +2,7 @@
 using HomeMenu.Functions;
 using Microsoft.Win32;
 using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,6 +15,9 @@ namespace HomeMenu.Windows
     /// </summary>
     public partial class ProfilePage : Window
     {
+        /// <summary>
+        /// данные для редактирования профиля
+        /// </summary>
         private string _selectedImagePath;
         private bool _isEditingName = false;
         private bool _isEditingDesc = false;
@@ -26,6 +27,9 @@ namespace HomeMenu.Windows
             InitializeComponent();
             LoadProfileData();
         }
+        /// <summary>
+        /// выгрузка данных профиля на форму
+        /// </summary>
         public void LoadProfileData()
         {
             var profile = Data.profile;
@@ -49,7 +53,11 @@ namespace HomeMenu.Windows
             }
                 Disheslv.ItemsSource = context.Dishes.Where(d => d.Author == profile.Id).ToList();
         }
-
+        /// <summary>
+        /// выбор блюда из всех блюд пользователя
+        /// </summary>
+        /// <param name="sender">элемент листбокса с блюдами</param>
+        /// <param name="e">событие нажатия на элемент</param>
         private void DishChoosed(object sender, SelectionChangedEventArgs e)
         {
             Data.dish = (Dish)Disheslv.SelectedItem;
@@ -57,7 +65,11 @@ namespace HomeMenu.Windows
             dishinfo.Show();
             this.Close();
         }
-
+        /// <summary>
+        /// возврат на главный экран
+        /// </summary>
+        /// <param name="sender">кнопка На главную</param>
+        /// <param name="e">событие нажатия на кнопку</param>
         private void ReturnClick(object sender, RoutedEventArgs e)
         {
             Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
@@ -65,7 +77,11 @@ namespace HomeMenu.Windows
             mainWindow.Show();
             this.Close();
         }
-
+        /// <summary>
+        /// Выход из аккаунта
+        /// </summary>
+        /// <param name="sender">кнопка Выход</param>
+        /// <param name="e">событие нажатия на кнопку</param>
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             Data.email = null;
@@ -74,7 +90,11 @@ namespace HomeMenu.Windows
             authorization.Show();
             this.Close();
         }
-
+        /// <summary>
+        /// Покупка подписки, пока тестовая
+        /// </summary>
+        /// <param name="sender">кнопка Подписка</param>
+        /// <param name="e">событие нажатия на кнопку</param>
         private async void BuyClick(object sender, RoutedEventArgs e)
         {
             try
@@ -84,22 +104,25 @@ namespace HomeMenu.Windows
                 string description = "Оплата подписки";
                 var user = context.Users.FirstOrDefault(u => u.Email == Data.email);
 
-                var paymentResult = await Main.CreatePay(amount, orderId, description, user.Id, Privacy.ConfigurationHelper.Configuration);
-                Process.Start(new ProcessStartInfo
+                if (user.Role != 2)
                 {
-                    FileName = paymentResult,
-                    UseShellExecute = true
-                });
-
-                await Task.Delay(60000);
-
-                user.Role = 2;
-                await context.SaveChangesAsync();
-                MessageBox.Show("Оплата прошла успешно! Ваш аккаунт обновлен до премиум-статуса.");
+                    var paymentResult = await Main.CreatePay(amount, orderId, description, user.Id, Privacy.ConfigurationHelper.Configuration);
+                    user.Role = 2;
+                    await context.SaveChangesAsync();
+                    MessageBox.Show("Оплата прошла успешно! Ваш аккаунт обновлен до премиум-статуса.");
+                }
+                else
+                {
+                    MessageBox.Show("Подписка уже подключена на веки вечные!");
+                }
             }
             catch { }
         }
-
+        /// <summary>
+        /// Смена аватарки
+        /// </summary>
+        /// <param name="sender">фото аватарки</param>
+        /// <param name="e">событие нажатия на картинку</param>
         private void LoadImageClick(object sender, MouseButtonEventArgs e)
         {
             var profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
@@ -121,6 +144,11 @@ namespace HomeMenu.Windows
             context.Profiles.Update(profile);
             context.SaveChanges();
         }
+        /// <summary>
+        /// Редактирование названия канала
+        /// </summary>
+        /// <param name="sender">кнопка карандашика у названия</param>
+        /// <param name="e">нажатие на карандашик</param>
         private void EditName_Click(object sender, RoutedEventArgs e)
         {
             if (!_isEditingName)
@@ -144,7 +172,11 @@ namespace HomeMenu.Windows
                 NameTextBox.IsReadOnly = true;
             }
         }
-
+        /// <summary>
+        /// Редактирование описания профиля
+        /// </summary>
+        /// <param name="sender">Кнопка карандашика у описания</param>
+        /// <param name="e">нажатие на карандашик</param>
         private void EditDesc_Click(object sender, RoutedEventArgs e)
         {
             if (!_isEditingDesc)

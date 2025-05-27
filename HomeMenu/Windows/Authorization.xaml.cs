@@ -16,7 +16,11 @@ namespace HomeMenu
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Переход на сброс пароля
+        /// </summary>
+        /// <param name="sender">текст Забыли пароль?</param>
+        /// <param name="e">нажатие на текст</param>
         private void ForgotPasswordClick(object sender, MouseButtonEventArgs e)
         {
             Data.forget = true;
@@ -24,14 +28,22 @@ namespace HomeMenu
             registration.Show();
             this.Close();
         }
-
+        /// <summary>
+        /// Переход на регистрацию
+        /// </summary>
+        /// <param name="sender">текст Регистрация</param>
+        /// <param name="e">нажатие на текст</param>
         private void RegistrationClick(object sender, MouseButtonEventArgs e)
         {
             Registration registration = new Registration();
             registration.Show();
             this.Close();
         }
-
+        /// <summary>
+        /// Авторизация
+        /// </summary>
+        /// <param name="sender">кнопка Войти</param>
+        /// <param name="e">нажатие на кнопку</param>
         private void LoginClick(object sender, RoutedEventArgs e)
         {
             if (!Functions.Authorization.Authorize(tbLogin.Text, tbPassword.Password))

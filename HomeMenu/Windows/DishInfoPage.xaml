@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <Image x:Name="PhotoImage" Grid.RowSpan="4" Grid.ColumnSpan="3" Grid.Column="2" Width="330" Height="330" HorizontalAlignment="Left" Margin="30,0"/>
         <TextBlock x:Name="Nametb" HorizontalAlignment="Center" Text="" FontFamily="Corbel" FontSize="40" Grid.ColumnSpan="4" Grid.Column="4"/>
-        <TextBlock x:Name="Timetb" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="1"><Run Text="Приготовление: " FontFamily="Corbel" FontSize="25"/> <Run x:Name="TimeRun" Text="" FontFamily="Corbel" FontSize="25"/></TextBlock>
+        <TextBlock x:Name="Timetb" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="1"><Run Text="Время: " FontFamily="Corbel" FontSize="25"/> <Run x:Name="TimeRun" Text="" FontFamily="Corbel" FontSize="25"/></TextBlock>
         <TextBlock HorizontalAlignment="Center" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="3"><Run Text="Сложность: " FontFamily="Corbel" FontSize="25"/><Run Text="" x:Name="DifficultRun" FontFamily="Corbel" FontSize="25"/><Run Text=" / 5" FontFamily="Corbel" FontSize="25"/></TextBlock>
         <TextBlock HorizontalAlignment="Center" Grid.Row="2" Grid.Column="4"><Run Text="Порции: " FontFamily="Corbel" FontSize="25"/><Run x:Name="PortionRun" Text="" FontFamily="Corbel" FontSize="25"/></TextBlock>
         <TextBlock x:Name="Categorytb" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3" Text="" FontFamily="Corbel" FontSize="25"></TextBlock>
@@ -42,6 +42,6 @@
         </Image>
         <TextBox x:Name="Recipetb" IsReadOnly="True" Grid.Row="5" Grid.ColumnSpan="4" Grid.Column="4" TextWrapping="Wrap" FontFamily="Corbel" FontSize="25"/>
         <TextBox x:Name="Ingridientstb" Grid.Row="5" IsReadOnly="True" Grid.ColumnSpan="4" TextWrapping="Wrap" FontFamily="Corbel" FontSize="25"/>
-        <Button Content="Назад" Click="ReturnClick" Height="55" Margin="10" FontFamily="Corbel" Grid.ColumnSpan="2" FontSize="25" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5"/>
+        <Button Content="На главную" Click="ReturnClick" Height="55" Margin="10" FontFamily="Corbel" Grid.ColumnSpan="2" FontSize="25" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5"/>
     </Grid>
 </Window>
