@@ -9,6 +9,7 @@ using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using System;
 
 namespace HomeMenu.Functions
 {
@@ -39,8 +40,8 @@ namespace HomeMenu.Functions
         /// <param name="recipe">рецепт</param>
         /// <param name="ingridients">список ингредиентов</param>
         /// <returns>правильность заполнения формы</returns>
-        public static bool ValidateDish(string name, string photo, string calories, string proteins, string fats, string carbohydrates, string portions, string hours, string minutes,
-            string recipe, System.Collections.IEnumerable ingridients)
+        public static bool ValidateDish(string name, string photo, ref string calories, ref string proteins, ref string fats, ref string carbohydrates, string portions, string hours, string minutes,
+            string recipe, string ingridients)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -52,15 +53,11 @@ namespace HomeMenu.Functions
                 MessageBox.Show("Вставьте изображение блюда");
                 return false;
             }
-            if (!double.TryParse(calories, out _) ||
-                !double.TryParse(proteins, out _) ||
-                !double.TryParse(fats, out _) ||
-                !double.TryParse(carbohydrates, out _) ||
-                !int.TryParse(portions, out _) ||
+            if (!int.TryParse(portions, out _) ||
                 !int.TryParse(hours, out _) ||
                 !int.TryParse(minutes, out _))
             {
-                MessageBox.Show("Проверьте числовые значения (калории, БЖУ, порции, время)");
+                MessageBox.Show("Проверьте числовые значения (порции, время)");
                 return false;
             }
             if (recipe == "Подготовка: ")
@@ -68,13 +65,102 @@ namespace HomeMenu.Functions
                 MessageBox.Show("Поделитесь рецептом Вашего блюда");
                 return false;
             }
-            if (ingridients == null)
+            if (string.IsNullOrWhiteSpace(ingridients))
             {
                 MessageBox.Show("Укажите ингредиенты Вашего блюда с граммами");
                 return false;
             }
+            if (calories == "") calories = Calculations.CalculateCalories(ingridients).ToString();
+            if (proteins == "") proteins = Calculations.CalculateProteins(ingridients).ToString();
+            if (fats == "") fats = Calculations.CalculateFats(ingridients).ToString();
+            if (carbohydrates == "") carbohydrates = Calculations.CalculateCarbohydrates(ingridients).ToString();
+            if(!double.TryParse(calories, out _) || !double.TryParse(proteins, out _) ||
+                !double.TryParse(fats, out _) || !double.TryParse(carbohydrates, out _)) return false;
             return true;
         }
+        /// <summary>
+        /// класс для расчёта калорий и БЖУ
+        /// </summary>
+        public class Calculations
+        {
+            /// <summary>
+            /// расчёт калорий по списку ингредиентов
+            /// </summary>
+            /// <param name="ingridients">список ингредиентов</param>
+            /// <returns>сумму калорий</returns>
+            public static double CalculateCalories(string ingridients)
+            {
+                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
+                HomeMenuContext context = new();
+                double sum = 0;
+                foreach (var ingridient in ingredientsList)
+                {
+                    var dash = ingridient.IndexOf('-');
+                    var ingridientName = ingridient.Remove(dash-1);
+                    var ingridientAmmount = ingridient.Remove(0, dash+1);
+                    sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Calories*Double.Parse(ingridientAmmount)/100;
+                }
+                return Math.Round(sum, 1);
+            }
+            /// <summary>
+            /// расчёт белков по списку ингредиентов
+            /// </summary>
+            /// <param name="ingridients">список ингредиентов</param>
+            /// <returns>сумму белков</returns>
+            public static double CalculateProteins(string ingridients)
+            {
+                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
+                HomeMenuContext context = new();
+                double sum = 0;
+                foreach (var ingridient in ingredientsList)
+                {
+                    var dash = ingridient.IndexOf('-');
+                    var ingridientName = ingridient.Remove(dash - 1);
+                    var ingridientAmmount = ingridient.Remove(0, dash + 1);
+                    sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Proteins * Double.Parse(ingridientAmmount) / 100;
+                }
+                return Math.Round(sum, 1);
+            }
+            /// <summary>
+            /// расчёт жиров по списку ингредиентов
+            /// </summary>
+            /// <param name="ingridients">список ингредиентов</param>
+            /// <returns>сумму жиров</returns>
+            public static double CalculateFats(string ingridients)
+            {
+                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
+                HomeMenuContext context = new();
+                double sum = 0;
+                foreach (var ingridient in ingredientsList)
+                {
+                    var dash = ingridient.IndexOf('-');
+                    var ingridientName = ingridient.Remove(dash - 1);
+                    var ingridientAmmount = ingridient.Remove(0, dash + 1);
+                    sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Fats * Double.Parse(ingridientAmmount) / 100;
+                }
+                return Math.Round(sum, 1);
+            }
+            /// <summary>
+            /// расчёт углеводов по списку ингредиентов
+            /// </summary>
+            /// <param name="ingridients">список ингредиентов</param>
+            /// <returns>сумму углеводов</returns>
+            public static double CalculateCarbohydrates(string ingridients)
+            {
+                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
+                HomeMenuContext context = new();
+                double sum = 0;
+                foreach (var ingridient in ingredientsList)
+                {
+                    var dash = ingridient.IndexOf('-');
+                    var ingridientName = ingridient.Remove(dash - 1);
+                    var ingridientAmmount = ingridient.Remove(0, dash + 1);
+                    sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Carbohydrates * Double.Parse(ingridientAmmount) / 100;
+                }
+                return Math.Round(sum, 1);
+            }
+        }
+
         /// <summary>
         /// Создание платежа
         /// </summary>

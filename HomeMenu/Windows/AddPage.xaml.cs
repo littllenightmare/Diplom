@@ -189,23 +189,28 @@ namespace HomeMenu.Windows
                     MessageBox.Show($"Выберите категорию из выпадающего списка.");
                     return;
                 }
-                if (!Main.ValidateDish(NameTextBox.Text, PhotoImage.Source.ToString(), CaloriesTextBox.Text, ProteinsTextBox.Text, FatsTextBox.Text, CarbohydratesTextBox.Text,
-                    PortionsTextBox.Text, HoursTextBox.Text, MinutesTextBox.Text, RecipeTextBox.Text, IngredientsList.Items)) return;
+                var calories = CaloriesTextBox.Text;
+                var proteins = ProteinsTextBox.Text;
+                var fats = FatsTextBox.Text;
+                var carbohydrates = CarbohydratesTextBox.Text;
                 
                 var ingredientsList = new List<string>();
                 foreach (IngredientItem item in IngredientsList.Items)
                 {
-                    ingredientsList.Add($"{item.Name}- {item.Amount}");
+                    ingredientsList.Add($"{item.Name} - {item.Amount}");
                 }
                 var ingredientsJson = JsonConvert.SerializeObject(ingredientsList);
+
+                if (!Main.ValidateDish(NameTextBox.Text, PhotoImage.Source.ToString(), ref calories, ref proteins, ref fats, ref carbohydrates,
+                    PortionsTextBox.Text, HoursTextBox.Text, MinutesTextBox.Text, RecipeTextBox.Text, ingredientsJson)) return;
 
                 var dish = new Dish
                 {
                     Name = NameTextBox.Text,
-                    Calories = double.Parse(CaloriesTextBox.Text),
-                    Proteins = double.Parse(ProteinsTextBox.Text),
-                    Fats = double.Parse(FatsTextBox.Text),
-                    Carbohydrates = double.Parse(CarbohydratesTextBox.Text),
+                    Calories = double.Parse(calories),
+                    Proteins = double.Parse(proteins),
+                    Fats = double.Parse(fats),
+                    Carbohydrates = double.Parse(carbohydrates),
                     Portion = int.Parse(PortionsTextBox.Text),
                     Difficult = Int32.Parse(DifficultComboBox.SelectedItem.ToString()),
                     Category = context.Categories.FirstOrDefault(c => c.Name == CategoryComboBox.SelectedItem).Id,

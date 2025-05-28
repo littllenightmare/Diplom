@@ -51,8 +51,16 @@ namespace HomeMenu.Windows
 
             Recipetb.Text = dish.Recipe;
 
-            var ingredientsList = JsonConvert.DeserializeObject<List<string>>(dish.Ingridients);
-            Ingridientstb.Text = string.Join(Environment.NewLine, ingredientsList);
+            try
+            {
+                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(dish.Ingridients);
+                Ingridientstb.Text = string.Join(Environment.NewLine, ingredientsList);
+            }
+            catch
+            {
+                var ingredientsDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(dish.Ingridients);
+                Ingridientstb.Text = string.Join(Environment.NewLine, ingredientsDict.Select(kvp => $"{kvp.Key} - {kvp.Value}"));
+            }
         }
         /// <summary>
         /// Возврат на главную
@@ -79,6 +87,44 @@ namespace HomeMenu.Windows
                 profilePage.Show();
                 this.Close();
             }
+        }
+        /// <summary>
+        /// Вывод аллергенов на форму
+        /// </summary>
+        /// <param name="sender">кнопка Аллергены</param>
+        /// <param name="e">нажатие на кнопку</param>
+        private void AllergenClick(object sender, RoutedEventArgs e)
+        {
+            var dish = Data.dish;
+            List<string> allergenList = new();
+            try
+            {
+                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(dish.Ingridients);
+                foreach (var ingridient in ingredientsList)
+                {
+                    var dash = ingridient.IndexOf('-');
+                    var ingridientName = ingridient.Remove(dash - 1);
+                    if (context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Allergen == true)
+                    {
+                        allergenList.Add(ingridientName);
+                    }
+                }
+            }
+            catch
+            {
+                var ingredientsList = JsonConvert.DeserializeObject<Dictionary<string, string>>(dish.Ingridients);
+                foreach (var ingridient in ingredientsList)
+                {
+                    var dash = ingridient.Key.IndexOf('-');
+                    var ingridientName = ingridient.Key.Remove(dash - 1);
+                    if (context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Allergen == true)
+                    {
+                        allergenList.Add(ingridientName);
+                    }
+                }
+            }
+            string allergens = string.Join(", ", allergenList);
+            MessageBox.Show($"Аллергены: {allergens}", "Осторожно!", default, MessageBoxImage.Warning);
         }
     }
 }

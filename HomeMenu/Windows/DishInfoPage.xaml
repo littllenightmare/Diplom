@@ -43,5 +43,6 @@
         <TextBox x:Name="Recipetb" IsReadOnly="True" Grid.Row="5" Grid.ColumnSpan="4" Grid.Column="4" TextWrapping="Wrap" FontFamily="Corbel" FontSize="25"/>
         <TextBox x:Name="Ingridientstb" Grid.Row="5" IsReadOnly="True" Grid.ColumnSpan="4" TextWrapping="Wrap" FontFamily="Corbel" FontSize="25"/>
         <Button Content="На главную" Click="ReturnClick" Height="55" Margin="10" FontFamily="Corbel" Grid.ColumnSpan="2" FontSize="25" Background="LightBlue" BorderBrush="CornflowerBlue" BorderThickness="5"/>
+        <Button Content="Аллергены" Click="AllergenClick" Height="55" Margin="10" FontFamily="Corbel" Grid.ColumnSpan="2" Grid.Row="3" FontSize="25" Background="White" BorderBrush="Red" BorderThickness="5"/>
     </Grid>
 </Window>
