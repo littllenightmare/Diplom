@@ -99,13 +99,17 @@ namespace HomeMenu.Functions
         /// <returns>ничего(</returns>
         private static async Task SendMail(MailMessage mail, string password)
         {
-            using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.ru", 587))
+            try
             {
-                smtpClient.EnableSsl = true;
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential(mail.From.Address, password);
-                await smtpClient.SendMailAsync(mail);
+                using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.ru", 587))
+                {
+                    smtpClient.EnableSsl = true;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.Credentials = new NetworkCredential(mail.From.Address, password);
+                    await smtpClient.SendMailAsync(mail);
+                }
             }
+            catch { }
         }
         /// <summary>
         /// Присвоение пароля пользователю

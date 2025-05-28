@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
@@ -22,8 +21,12 @@ namespace HomeMenu.Functions
         /// <returns>список подходящих блюд</returns>
         public static async Task<List<Dish>> Find(string finder)
         {
-            HomeMenuContext context = new();
-            return await context.Dishes.Where(d => d.CategoryNavigation.Name.Contains(finder) || d.Name.Contains(finder) || d.AuthorNavigation.Name.Contains(finder)).ToListAsync();
+            try
+            {
+                HomeMenuContext context = new();
+                return await context.Dishes.Where(d => d.CategoryNavigation.Name.Contains(finder) || d.Name.Contains(finder) || d.AuthorNavigation.Name.Contains(finder)).ToListAsync();
+            }
+            catch { return  new List<Dish>() { }; }
         }
         /// <summary>
         /// Валидация блюда при его добавлении
@@ -43,40 +46,44 @@ namespace HomeMenu.Functions
         public static bool ValidateDish(string name, string photo, ref string calories, ref string proteins, ref string fats, ref string carbohydrates, string portions, string hours, string minutes,
             string recipe, string ingridients)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            try
             {
-                MessageBox.Show("Введите название блюда");
-                return false;
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    MessageBox.Show("Введите название блюда");
+                    return false;
+                }
+                if (photo == "pack://application:,,,/Images/Icon.png")
+                {
+                    MessageBox.Show("Вставьте изображение блюда");
+                    return false;
+                }
+                if (!int.TryParse(portions, out _) ||
+                    !int.TryParse(hours, out _) ||
+                    !int.TryParse(minutes, out _))
+                {
+                    MessageBox.Show("Проверьте числовые значения (порции, время)");
+                    return false;
+                }
+                if (recipe == "Подготовка: ")
+                {
+                    MessageBox.Show("Поделитесь рецептом Вашего блюда");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(ingridients))
+                {
+                    MessageBox.Show("Укажите ингредиенты Вашего блюда с граммами");
+                    return false;
+                }
+                if (calories == "") calories = Calculations.CalculateCalories(ingridients).ToString();
+                if (proteins == "") proteins = Calculations.CalculateProteins(ingridients).ToString();
+                if (fats == "") fats = Calculations.CalculateFats(ingridients).ToString();
+                if (carbohydrates == "") carbohydrates = Calculations.CalculateCarbohydrates(ingridients).ToString();
+                if (!double.TryParse(calories, out _) || !double.TryParse(proteins, out _) ||
+                    !double.TryParse(fats, out _) || !double.TryParse(carbohydrates, out _)) return false;
+                return true;
             }
-            if (photo == "pack://application:,,,/Images/Icon.png")
-            {
-                MessageBox.Show("Вставьте изображение блюда");
-                return false;
-            }
-            if (!int.TryParse(portions, out _) ||
-                !int.TryParse(hours, out _) ||
-                !int.TryParse(minutes, out _))
-            {
-                MessageBox.Show("Проверьте числовые значения (порции, время)");
-                return false;
-            }
-            if (recipe == "Подготовка: ")
-            {
-                MessageBox.Show("Поделитесь рецептом Вашего блюда");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(ingridients))
-            {
-                MessageBox.Show("Укажите ингредиенты Вашего блюда с граммами");
-                return false;
-            }
-            if (calories == "") calories = Calculations.CalculateCalories(ingridients).ToString();
-            if (proteins == "") proteins = Calculations.CalculateProteins(ingridients).ToString();
-            if (fats == "") fats = Calculations.CalculateFats(ingridients).ToString();
-            if (carbohydrates == "") carbohydrates = Calculations.CalculateCarbohydrates(ingridients).ToString();
-            if(!double.TryParse(calories, out _) || !double.TryParse(proteins, out _) ||
-                !double.TryParse(fats, out _) || !double.TryParse(carbohydrates, out _)) return false;
-            return true;
+            catch { return false; }
         }
         /// <summary>
         /// класс для расчёта калорий и БЖУ
@@ -90,17 +97,21 @@ namespace HomeMenu.Functions
             /// <returns>сумму калорий</returns>
             public static double CalculateCalories(string ingridients)
             {
-                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
-                HomeMenuContext context = new();
-                double sum = 0;
-                foreach (var ingridient in ingredientsList)
+                try
                 {
-                    var dash = ingridient.IndexOf('-');
-                    var ingridientName = ingridient.Remove(dash-1);
-                    var ingridientAmmount = ingridient.Remove(0, dash+1);
-                    sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Calories*Double.Parse(ingridientAmmount)/100;
+                    var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
+                    HomeMenuContext context = new();
+                    double sum = 0;
+                    foreach (var ingridient in ingredientsList)
+                    {
+                        var dash = ingridient.IndexOf('-');
+                        var ingridientName = ingridient.Remove(dash - 1);
+                        var ingridientAmmount = ingridient.Remove(0, dash + 1);
+                        sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Calories * Double.Parse(ingridientAmmount) / 100;
+                    }
+                    return Math.Round(sum, 1);
                 }
-                return Math.Round(sum, 1);
+                catch { return 0; }
             }
             /// <summary>
             /// расчёт белков по списку ингредиентов
@@ -109,17 +120,21 @@ namespace HomeMenu.Functions
             /// <returns>сумму белков</returns>
             public static double CalculateProteins(string ingridients)
             {
-                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
-                HomeMenuContext context = new();
-                double sum = 0;
-                foreach (var ingridient in ingredientsList)
+                try
                 {
-                    var dash = ingridient.IndexOf('-');
-                    var ingridientName = ingridient.Remove(dash - 1);
-                    var ingridientAmmount = ingridient.Remove(0, dash + 1);
-                    sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Proteins * Double.Parse(ingridientAmmount) / 100;
+                    var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
+                    HomeMenuContext context = new();
+                    double sum = 0;
+                    foreach (var ingridient in ingredientsList)
+                    {
+                        var dash = ingridient.IndexOf('-');
+                        var ingridientName = ingridient.Remove(dash - 1);
+                        var ingridientAmmount = ingridient.Remove(0, dash + 1);
+                        sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Proteins * Double.Parse(ingridientAmmount) / 100;
+                    }
+                    return Math.Round(sum, 1);
                 }
-                return Math.Round(sum, 1);
+               catch { return 0; }
             }
             /// <summary>
             /// расчёт жиров по списку ингредиентов
@@ -128,17 +143,21 @@ namespace HomeMenu.Functions
             /// <returns>сумму жиров</returns>
             public static double CalculateFats(string ingridients)
             {
-                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
-                HomeMenuContext context = new();
-                double sum = 0;
-                foreach (var ingridient in ingredientsList)
+                try
                 {
-                    var dash = ingridient.IndexOf('-');
-                    var ingridientName = ingridient.Remove(dash - 1);
-                    var ingridientAmmount = ingridient.Remove(0, dash + 1);
-                    sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Fats * Double.Parse(ingridientAmmount) / 100;
+                    var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
+                    HomeMenuContext context = new();
+                    double sum = 0;
+                    foreach (var ingridient in ingredientsList)
+                    {
+                        var dash = ingridient.IndexOf('-');
+                        var ingridientName = ingridient.Remove(dash - 1);
+                        var ingridientAmmount = ingridient.Remove(0, dash + 1);
+                        sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Fats * Double.Parse(ingridientAmmount) / 100;
+                    }
+                    return Math.Round(sum, 1);
                 }
-                return Math.Round(sum, 1);
+                catch { return 0; }
             }
             /// <summary>
             /// расчёт углеводов по списку ингредиентов
@@ -147,17 +166,21 @@ namespace HomeMenu.Functions
             /// <returns>сумму углеводов</returns>
             public static double CalculateCarbohydrates(string ingridients)
             {
-                var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
-                HomeMenuContext context = new();
-                double sum = 0;
-                foreach (var ingridient in ingredientsList)
+                try
                 {
-                    var dash = ingridient.IndexOf('-');
-                    var ingridientName = ingridient.Remove(dash - 1);
-                    var ingridientAmmount = ingridient.Remove(0, dash + 1);
-                    sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Carbohydrates * Double.Parse(ingridientAmmount) / 100;
+                    var ingredientsList = JsonConvert.DeserializeObject<List<string>>(ingridients);
+                    HomeMenuContext context = new();
+                    double sum = 0;
+                    foreach (var ingridient in ingredientsList)
+                    {
+                        var dash = ingridient.IndexOf('-');
+                        var ingridientName = ingridient.Remove(dash - 1);
+                        var ingridientAmmount = ingridient.Remove(0, dash + 1);
+                        sum += context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Carbohydrates * Double.Parse(ingridientAmmount) / 100;
+                    }
+                    return Math.Round(sum, 1);
                 }
-                return Math.Round(sum, 1);
+                catch { return 0; }
             }
         }
 
@@ -172,20 +195,24 @@ namespace HomeMenu.Functions
         /// <returns>успешность создания платежа</returns>
         public static async Task<string> CreatePay(int amount, string orderId, string description, int userId, IConfiguration configuration)
         {
-            var httpClient = new HttpClient();
-            var paymentService = new PaymentService(configuration, httpClient);
-            var payment = new Payment
+            try
             {
-                Amount = amount,
-                Id = orderId,
-                Description = description,
-                UserId = userId,
-                SuccessUrl = "https://nekto-z.tech",
-                FailUrl = "https://nekto-z.tech"
-            };
+                var httpClient = new HttpClient();
+                var paymentService = new PaymentService(configuration, httpClient);
+                var payment = new Payment
+                {
+                    Amount = amount,
+                    Id = orderId,
+                    Description = description,
+                    UserId = userId,
+                    SuccessUrl = "https://nekto-z.tech",
+                    FailUrl = "https://nekto-z.tech"
+                };
 
-            var paymentUrl = await paymentService.InitPayment(payment);
-            return paymentUrl;
+                var paymentUrl = await paymentService.InitPayment(payment);
+                return paymentUrl;
+            }
+            catch { return null; }
         }
         /// <summary>
         /// платёжный сервис
@@ -198,8 +225,8 @@ namespace HomeMenu.Functions
             /// <summary>
             /// Наполнение конфигурационными данными
             /// </summary>
-            /// <param name="configuration"></param>
-            /// <param name="httpClient"></param>
+            /// <param name="configuration">конфигурация</param>
+            /// <param name="httpClient">сайтик</param>
             public PaymentService(IConfiguration configuration, HttpClient httpClient)
             {
                 _terminalKey = configuration["PaymentSettings:TerminalKey"];
@@ -209,15 +236,19 @@ namespace HomeMenu.Functions
             /// <summary>
             /// Инициализация платежа на стороне ТБанка
             /// </summary>
-            /// <param name="payment"></param>
-            /// <returns></returns>
+            /// <param name="payment">платежная система</param>
+            /// <returns>ответ ТБанка</returns>
             public async Task<string> InitPayment(Payment payment)
             {
-                var jsonContent = JsonConvert.SerializeObject(payment);
-                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("https://rest-api-test.tinkoff.ru/v2", content);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return responseContent;
+                try
+                {
+                    var jsonContent = JsonConvert.SerializeObject(payment);
+                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    var response = await _httpClient.PostAsync("https://rest-api-test.tinkoff.ru/v2", content);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return responseContent;
+                }
+                catch { return null; }
             }
         }
     }
@@ -240,12 +271,16 @@ namespace HomeMenu.Functions
             /// <summary>
             /// Возврат секретных данных
             /// </summary>
-            /// <returns></returns>
+            /// <returns>почтовые данные</returns>
             public static EmailSettings GetEmailSettings()
             {
-                var emailSettings = new EmailSettings();
-                Configuration.GetSection("EmailSettings").Bind(emailSettings);
-                return emailSettings;
+                try
+                {
+                    var emailSettings = new EmailSettings();
+                    Configuration.GetSection("EmailSettings").Bind(emailSettings);
+                    return emailSettings;
+                }
+                catch { return null; }
             }
         }
     }
