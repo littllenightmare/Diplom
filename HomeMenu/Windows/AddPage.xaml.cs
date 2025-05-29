@@ -27,15 +27,17 @@ namespace HomeMenu.Windows
         public AddPage()
         {
             InitializeComponent();
-            if (context.Users.FirstOrDefault(u => u.Email == Data.email).Role != 2)
+            try
             {
-                MessageBox.Show("Создать блюдо можно только оплатив подписку!");
-                ProfilePage profile = new ProfilePage();
-                profile.Show();
-                this.Close();
-                return;
-            }
-            DifficultComboBox.ItemsSource = new List<string>
+                if (context.Users.FirstOrDefault(u => u.Email == Data.email).Role != 2)
+                {
+                    MessageBox.Show("Создать блюдо можно только оплатив подписку!");
+                    ProfilePage profile = new ProfilePage();
+                    profile.Show();
+                    this.Close();
+                    return;
+                }
+                DifficultComboBox.ItemsSource = new List<string>
     {
         "1",
                 "2",
@@ -43,16 +45,18 @@ namespace HomeMenu.Windows
                 "4",
                 "5"
     };
-            List<string> categories = new List<string>();
-            foreach (var category in context.Categories)
-            {
-                if (!categories.Contains(category.Name))
+                List<string> categories = new List<string>();
+                foreach (var category in context.Categories)
                 {
-                    categories.Add(category.Name);
+                    if (!categories.Contains(category.Name))
+                    {
+                        categories.Add(category.Name);
+                    }
                 }
+                CategoryComboBox.ItemsSource = categories;
+                PhotoImage.Source = new BitmapImage(new Uri("/Images/Icon.png", UriKind.RelativeOrAbsolute));
             }
-            CategoryComboBox.ItemsSource = categories;
-            PhotoImage.Source = new BitmapImage(new Uri("/Images/Icon.png", UriKind.RelativeOrAbsolute));
+            catch { }
         }
         /// <summary>
         /// Добавление ингредиента в список
@@ -61,36 +65,40 @@ namespace HomeMenu.Windows
         /// <param name="e">нажатие на плюсик</param>
         private void AddIngridientClick(object sender, MouseButtonEventArgs e)
         {
-            if (SearchListBox.SelectedItem != null)
+            try
             {
-                var selected = (Ingridient)SearchListBox.SelectedItem;
-                if (!IngredientsList.Items.Cast<IngredientItem>().Any(i => i.Name == selected.Name))
+                if (SearchListBox.SelectedItem != null)
                 {
-                    IngredientsList.Items.Add(new IngredientItem
+                    var selected = (Ingridient)SearchListBox.SelectedItem;
+                    if (!IngredientsList.Items.Cast<IngredientItem>().Any(i => i.Name == selected.Name))
                     {
-                        Name = selected.Name,
-                        Amount = 100
-                    });
-                    SearchTextBox.Clear();
-                    SearchListBox.ItemsSource = null;
-                    SearchListBox.SelectedItem = null;
+                        IngredientsList.Items.Add(new IngredientItem
+                        {
+                            Name = selected.Name,
+                            Amount = 100
+                        });
+                        SearchTextBox.Clear();
+                        SearchListBox.ItemsSource = null;
+                        SearchListBox.SelectedItem = null;
+                    }
+                }
+                else if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
+                {
+                    var ingredientName = SearchTextBox.Text.Trim();
+                    if (!IngredientsList.Items.Cast<IngredientItem>().Any(i => i.Name == ingredientName))
+                    {
+                        IngredientsList.Items.Add(new IngredientItem
+                        {
+                            Name = ingredientName,
+                            Amount = 100
+                        });
+                        SearchTextBox.Clear();
+                        SearchListBox.ItemsSource = null;
+                        SearchListBox.SelectedItem = null;
+                    }
                 }
             }
-            else if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
-            {
-                var ingredientName = SearchTextBox.Text.Trim();
-                if (!IngredientsList.Items.Cast<IngredientItem>().Any(i => i.Name == ingredientName))
-                {
-                    IngredientsList.Items.Add(new IngredientItem
-                    {
-                        Name = ingredientName,
-                        Amount = 100
-                    });
-                    SearchTextBox.Clear();
-                    SearchListBox.ItemsSource = null;
-                    SearchListBox.SelectedItem = null;
-                }
-            }
+            catch { }
         }
         /// <summary>
         /// Поиск ингредиента
@@ -127,29 +135,33 @@ namespace HomeMenu.Windows
         /// <param name="e">нажатие enter при фокусе окошка ввода рецепта</param>
         private void RecipeTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            try
             {
-                e.Handled = true;
-                var currentText = RecipeTextBox.Text;
-                var selectionStart = RecipeTextBox.SelectionStart;
-
-                int lastNumber = 1;
-                var lines = currentText.Split('\n');
-                if (lines.Length > 0)
+                if (e.Key == Key.Enter)
                 {
-                    var lastLine = lines.LastOrDefault(l => l.Trim().Length > 0);
-                    if (lastLine != null && lastLine.Contains("."))
+                    e.Handled = true;
+                    var currentText = RecipeTextBox.Text;
+                    var selectionStart = RecipeTextBox.SelectionStart;
+
+                    int lastNumber = 1;
+                    var lines = currentText.Split('\n');
+                    if (lines.Length > 0)
                     {
-                        var numStr = lastLine.Split('.')[0];
-                        if (int.TryParse(numStr, out int num))
+                        var lastLine = lines.LastOrDefault(l => l.Trim().Length > 0);
+                        if (lastLine != null && lastLine.Contains("."))
                         {
-                            lastNumber = num + 1;
+                            var numStr = lastLine.Split('.')[0];
+                            if (int.TryParse(numStr, out int num))
+                            {
+                                lastNumber = num + 1;
+                            }
                         }
                     }
+                    RecipeTextBox.Text = currentText.Insert(selectionStart, $"\n{lastNumber}. ");
+                    RecipeTextBox.SelectionStart = selectionStart + $"\n{lastNumber}. ".Length;
                 }
-                RecipeTextBox.Text = currentText.Insert(selectionStart, $"\n{lastNumber}. ");
-                RecipeTextBox.SelectionStart = selectionStart + $"\n{lastNumber}. ".Length;
             }
+            catch { }
         }
         /// <summary>
         /// Возврат на главную
@@ -240,17 +252,21 @@ namespace HomeMenu.Windows
         /// <param name="e">нажатие на картинку</param>
         private void LoadImageClick(object sender, MouseButtonEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog
+            try
             {
-                Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png",
-                Title = "Выберите изображение блюда"
-            };
+                var openFileDialog = new OpenFileDialog
+                {
+                    Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png",
+                    Title = "Выберите изображение блюда"
+                };
 
-            if (openFileDialog.ShowDialog() == true)
-            {
-                _selectedImagePath = openFileDialog.FileName;
-                PhotoImage.Source = new BitmapImage(new Uri(_selectedImagePath));
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    _selectedImagePath = openFileDialog.FileName;
+                    PhotoImage.Source = new BitmapImage(new Uri(_selectedImagePath));
+                }
             }
+            catch { }
         }
         /// <summary>
         /// Добавление ингредиента в рецепт
@@ -268,9 +284,13 @@ namespace HomeMenu.Windows
         /// <param name="e">нажатие на крестик</param>
         private void DeleteIngridientClick(object sender, RoutedEventArgs e)
         {
-            var button = (Button)sender;
-            var ingredient = (IngredientItem)button.DataContext;
-            IngredientsList.Items.Remove(ingredient);
+            try
+            {
+                var button = (Button)sender;
+                var ingredient = (IngredientItem)button.DataContext;
+                IngredientsList.Items.Remove(ingredient);
+            }
+            catch { }
         }
     }
 }

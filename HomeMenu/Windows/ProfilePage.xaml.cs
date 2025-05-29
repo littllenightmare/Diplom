@@ -32,26 +32,30 @@ namespace HomeMenu.Windows
         /// </summary>
         public void LoadProfileData()
         {
-            var profile = Data.profile;
-            var user = context.Users.FirstOrDefault(u => u.Email == Data.email);
-            if (profile.UserId == user.Id)
+            try
             {
-                Exitbtn.Visibility = Visibility.Visible;
-                Buybtn.Visibility = Visibility.Visible;
-                EditNameBtn.Visibility = Visibility.Visible;
-                EditDescBtn.Visibility = Visibility.Visible;
-            }
-            DescTextBox.Text = profile.Description;
-            NameTextBox.Text = profile.Name;
-            if (!string.IsNullOrEmpty(profile.Photo))
-            {
-                PhotoImage.Source = new BitmapImage(new Uri(profile.Photo, UriKind.RelativeOrAbsolute));
-            }
-            else
-            {
-                PhotoImage.Source = new BitmapImage(new Uri("/Images/profile.webp", UriKind.RelativeOrAbsolute));
-            }
+                var profile = Data.profile;
+                var user = context.Users.FirstOrDefault(u => u.Email == Data.email);
+                if (profile.UserId == user.Id)
+                {
+                    Exitbtn.Visibility = Visibility.Visible;
+                    Buybtn.Visibility = Visibility.Visible;
+                    EditNameBtn.Visibility = Visibility.Visible;
+                    EditDescBtn.Visibility = Visibility.Visible;
+                }
+                DescTextBox.Text = profile.Description;
+                NameTextBox.Text = profile.Name;
+                if (!string.IsNullOrEmpty(profile.Photo))
+                {
+                    PhotoImage.Source = new BitmapImage(new Uri(profile.Photo, UriKind.RelativeOrAbsolute));
+                }
+                else
+                {
+                    PhotoImage.Source = new BitmapImage(new Uri("/Images/profile.webp", UriKind.RelativeOrAbsolute));
+                }
                 Disheslv.ItemsSource = context.Dishes.Where(d => d.Author == profile.Id).ToList();
+            }
+            catch { }
         }
         /// <summary>
         /// выбор блюда из всех блюд пользователя
@@ -60,10 +64,14 @@ namespace HomeMenu.Windows
         /// <param name="e">событие нажатия на элемент</param>
         private void DishChoosed(object sender, SelectionChangedEventArgs e)
         {
-            Data.dish = (Dish)Disheslv.SelectedItem;
-            DishInfoPage dishinfo = new();
-            dishinfo.Show();
-            this.Close();
+            try
+            {
+                Data.dish = (Dish)Disheslv.SelectedItem;
+                DishInfoPage dishinfo = new();
+                dishinfo.Show();
+                this.Close();
+            }
+            catch { }
         }
         /// <summary>
         /// возврат на главный экран
@@ -72,10 +80,14 @@ namespace HomeMenu.Windows
         /// <param name="e">событие нажатия на кнопку</param>
         private void ReturnClick(object sender, RoutedEventArgs e)
         {
-            Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-            this.Close();
+            try
+            {
+                Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
+                MainWindow mainWindow = new();
+                mainWindow.Show();
+                this.Close();
+            }
+            catch { }
         }
         /// <summary>
         /// Выход из аккаунта
@@ -84,11 +96,15 @@ namespace HomeMenu.Windows
         /// <param name="e">событие нажатия на кнопку</param>
         private void ExitClick(object sender, RoutedEventArgs e)
         {
-            Data.email = null;
-            Data.profile = null;
-            Authorization authorization = new();
-            authorization.Show();
-            this.Close();
+            try
+            {
+                Data.email = null;
+                Data.profile = null;
+                Authorization authorization = new();
+                authorization.Show();
+                this.Close();
+            }
+            catch { }
         }
         /// <summary>
         /// Покупка подписки, пока тестовая
@@ -125,24 +141,28 @@ namespace HomeMenu.Windows
         /// <param name="e">событие нажатия на картинку</param>
         private void LoadImageClick(object sender, MouseButtonEventArgs e)
         {
-            var profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
-            if (Data.profile.Id == profile.Id)
+            try
             {
-                var openFileDialog = new OpenFileDialog
+                var profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
+                if (Data.profile.Id == profile.Id)
                 {
-                    Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png",
-                    Title = "Выберите изображение блюда"
-                };
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png",
+                        Title = "Выберите изображение блюда"
+                    };
 
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    _selectedImagePath = openFileDialog.FileName;
-                    PhotoImage.Source = new BitmapImage(new Uri(_selectedImagePath));
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        _selectedImagePath = openFileDialog.FileName;
+                        PhotoImage.Source = new BitmapImage(new Uri(_selectedImagePath));
+                    }
                 }
+                profile.Photo = _selectedImagePath;
+                context.Profiles.Update(profile);
+                context.SaveChanges();
             }
-            profile.Photo = _selectedImagePath;
-            context.Profiles.Update(profile);
-            context.SaveChanges();
+            catch { }
         }
         /// <summary>
         /// Редактирование названия канала
@@ -151,26 +171,30 @@ namespace HomeMenu.Windows
         /// <param name="e">нажатие на карандашик</param>
         private void EditName_Click(object sender, RoutedEventArgs e)
         {
-            if (!_isEditingName)
+            try
             {
-                EditNameBtn.Content = "✓";
-                NameTextBox.IsReadOnly = false;
-                _isEditingName = true;
-            }
-            else
-            {
-                var profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
-                if (profile != null)
+                if (!_isEditingName)
                 {
-                    profile.Name = NameTextBox.Text;
-                    context.Profiles.Update(profile);
-                    context.SaveChanges();
+                    EditNameBtn.Content = "✓";
+                    NameTextBox.IsReadOnly = false;
+                    _isEditingName = true;
                 }
+                else
+                {
+                    var profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
+                    if (profile != null)
+                    {
+                        profile.Name = NameTextBox.Text;
+                        context.Profiles.Update(profile);
+                        context.SaveChanges();
+                    }
 
-                EditNameBtn.Content = "✏️";
-                _isEditingName = false;
-                NameTextBox.IsReadOnly = true;
+                    EditNameBtn.Content = "✏️";
+                    _isEditingName = false;
+                    NameTextBox.IsReadOnly = true;
+                }
             }
+            catch { }
         }
         /// <summary>
         /// Редактирование описания профиля
@@ -179,26 +203,30 @@ namespace HomeMenu.Windows
         /// <param name="e">нажатие на карандашик</param>
         private void EditDesc_Click(object sender, RoutedEventArgs e)
         {
-            if (!_isEditingDesc)
+            try
             {
-                EditDescBtn.Content = "✓";
-                DescTextBox.IsReadOnly = false;
-                _isEditingDesc = true;
-            }
-            else
-            {
-                var profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
-                if (profile != null)
+                if (!_isEditingDesc)
                 {
-                    profile.Description = DescTextBox.Text;
-                    context.Profiles.Update(profile);
-                    context.SaveChanges();
+                    EditDescBtn.Content = "✓";
+                    DescTextBox.IsReadOnly = false;
+                    _isEditingDesc = true;
                 }
+                else
+                {
+                    var profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
+                    if (profile != null)
+                    {
+                        profile.Description = DescTextBox.Text;
+                        context.Profiles.Update(profile);
+                        context.SaveChanges();
+                    }
 
-                EditDescBtn.Content = "✏️";
-                _isEditingDesc = false;
-                DescTextBox.IsReadOnly = true;
+                    EditDescBtn.Content = "✏️";
+                    _isEditingDesc = false;
+                    DescTextBox.IsReadOnly = true;
+                }
             }
+            catch { }
         }
 
     }

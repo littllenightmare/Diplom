@@ -22,18 +22,22 @@ namespace HomeMenu
         /// </summary>
         void LoadDBToListView()
         {
-            using (HomeMenuContext context = new())
+            try
             {
-                int SelectedIndex = Disheslv.SelectedIndex;
-                Disheslv.ItemsSource = context.Dishes.ToList();
-                if (SelectedIndex != -1)
+                using (HomeMenuContext context = new())
                 {
-                    if (SelectedIndex == Disheslv.Items.Count) SelectedIndex--;
-                    Disheslv.SelectedIndex = SelectedIndex;
-                    Disheslv.ScrollIntoView(Disheslv.SelectedItem);
+                    int SelectedIndex = Disheslv.SelectedIndex;
+                    Disheslv.ItemsSource = context.Dishes.ToList();
+                    if (SelectedIndex != -1)
+                    {
+                        if (SelectedIndex == Disheslv.Items.Count) SelectedIndex--;
+                        Disheslv.SelectedIndex = SelectedIndex;
+                        Disheslv.ScrollIntoView(Disheslv.SelectedItem);
+                    }
+                    Disheslv.Focus();
                 }
-                Disheslv.Focus();
             }
+            catch { }
         }
         /// <summary>
         /// Поиск блюд по введённому тексту
@@ -63,10 +67,14 @@ namespace HomeMenu
         /// <param name="e">событие нажатия на кнопку</param>
         private void AddClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
-            AddPage add = new();
-            add.Show();
-            this.Close();
+            try
+            {
+                Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == Data.email).Id);
+                AddPage add = new();
+                add.Show();
+                this.Close();
+            }
+            catch { }
         }
         /// <summary>
         /// Переход на профиль пользвателя
@@ -96,10 +104,14 @@ namespace HomeMenu
         /// <param name="e">нажатие на элемент</param>
         private void DishChoosed(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Data.dish = (Dish)Disheslv.SelectedItem;
-            DishInfoPage dishinfo = new();
-            dishinfo.Show();
-            this.Close();
+            try
+            {
+                Data.dish = (Dish)Disheslv.SelectedItem;
+                DishInfoPage dishinfo = new();
+                dishinfo.Show();
+                this.Close();
+            }
+            catch { }
         }
     }
 }

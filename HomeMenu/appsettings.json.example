@@ -1,0 +1,10 @@
+﻿{
+  "EmailSettings": {
+    "Email": "a.kulkova@nekto-z.ru",
+    "EmailPassword": "Qq123789!"
+  },
+  "PaymentSettings": {
+    "TerminalKey": "TinkoffBankTest",
+    "SecretKey": "TinkoffBankTest"
+  }
+}

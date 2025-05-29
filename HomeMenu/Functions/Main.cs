@@ -273,7 +273,7 @@ namespace HomeMenu.Functions
             static ConfigurationHelper()
             {
                 var builder = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())  // Установите путь к каталогу с appsettings.json
+                    .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                 Configuration = builder.Build();
             }

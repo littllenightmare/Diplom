@@ -46,18 +46,22 @@ namespace HomeMenu
         /// <param name="e">нажатие на кнопку</param>
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            if (!Functions.Authorization.Authorize(tbLogin.Text, tbPassword.Password))
+            try
             {
-                MessageBox.Show("Неправильный логин или пароль!");
+                if (!Functions.Authorization.Authorize(tbLogin.Text, tbPassword.Password))
+                {
+                    MessageBox.Show("Неправильный логин или пароль!");
+                }
+                else
+                {
+                    Data.email = tbLogin.Text;
+                    Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == tbLogin.Text).Id);
+                    MainWindow mainWindow = new();
+                    mainWindow.Show();
+                    this.Close();
+                }
             }
-            else
-            {
-                Data.email = tbLogin.Text;
-                Data.profile = context.Profiles.FirstOrDefault(p => p.UserId == context.Users.FirstOrDefault(u => u.Email == tbLogin.Text).Id);
-                MainWindow mainWindow = new();
-                mainWindow.Show();
-                this.Close();
-            }
+            catch { }
         }
     }
 }
