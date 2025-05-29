@@ -101,7 +101,7 @@ namespace HomeMenu.Windows
         {
             try
             {
-                var searchText = SearchTextBox.Text.Trim();
+                var searchText = SearchTextBox.Text.ToLower();
                 if (string.IsNullOrWhiteSpace(searchText))
                 {
                     SearchListBox.ItemsSource = null;

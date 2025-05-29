@@ -92,7 +92,7 @@ public partial class HomeMenuContext : DbContext
 
             entity.ToTable("Profile");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
             entity.Property(e => e.Description).HasColumnType("character varying");
             entity.Property(e => e.Name).HasColumnType("character varying");
             entity.Property(e => e.Photo).HasColumnType("character varying");

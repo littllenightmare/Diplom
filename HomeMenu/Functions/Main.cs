@@ -9,6 +9,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
 using System;
+using System.IO;
 
 namespace HomeMenu.Functions
 {
@@ -24,6 +25,7 @@ namespace HomeMenu.Functions
             try
             {
                 HomeMenuContext context = new();
+                finder = finder.ToLower();
                 return await context.Dishes.Where(d => d.CategoryNavigation.Name.Contains(finder) || d.Name.Contains(finder) || d.AuthorNavigation.Name.Contains(finder)).ToListAsync();
             }
             catch { return  new List<Dish>() { }; }
@@ -268,6 +270,13 @@ namespace HomeMenu.Functions
         public static class ConfigurationHelper
         {
             public static IConfigurationRoot Configuration { get; private set; }
+            static ConfigurationHelper()
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())  // Установите путь к каталогу с appsettings.json
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                Configuration = builder.Build();
+            }
             /// <summary>
             /// Возврат секретных данных
             /// </summary>

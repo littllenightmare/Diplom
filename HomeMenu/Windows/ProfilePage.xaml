@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeMenu.Windows"
         mc:Ignorable="d"
-        Title="ProfilePage" Icon="/Images/Icon.png" Height="800" Width="1600" ResizeMode="CanMinimize">
+        Title="Профиль" Icon="/Images/Icon.png" Height="800" Width="1600" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

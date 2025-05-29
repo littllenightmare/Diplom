@@ -115,11 +115,9 @@ namespace HomeMenu.Windows
                 var ingredientsList = JsonConvert.DeserializeObject<Dictionary<string, string>>(dish.Ingridients);
                 foreach (var ingridient in ingredientsList)
                 {
-                    var dash = ingridient.Key.IndexOf('-');
-                    var ingridientName = ingridient.Key.Remove(dash - 1);
-                    if (context.Ingridients.FirstOrDefault(i => i.Name == ingridientName).Allergen == true)
+                    if (context.Ingridients.FirstOrDefault(i => i.Name == ingridient.Key).Allergen == true)
                     {
-                        allergenList.Add(ingridientName);
+                        allergenList.Add(ingridient.Key);
                     }
                 }
             }
